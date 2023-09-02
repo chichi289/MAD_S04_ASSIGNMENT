@@ -1,4 +1,4 @@
-package com.chichi289.assignments.presentation.screens
+package com.chichi289.assignments.presentation.screens.week1
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,19 +15,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import com.chichi289.assignments.R
 
 /**
  * Composable function that represents the main screen of the application.
  *
- * @param mainViewModel The [MainViewModel] used to manage the click count state.
+ * @param viewModel The [CounterViewModel] used to manage the click count state.
  */
 
 @Composable
-fun MainScreen(mainViewModel: MainViewModel) {
+fun CounterScreen(viewModel: CounterViewModel = hiltViewModel()) {
 
     // Get the current lifecycle owner
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -41,7 +44,7 @@ fun MainScreen(mainViewModel: MainViewModel) {
             LifecycleEventObserver { _: LifecycleOwner, event: Lifecycle.Event ->
                 if (event == Lifecycle.Event.ON_PAUSE) {
                     // When the app goes to the background (ON_PAUSE), reset the click count
-                    mainViewModel.resetCount()
+                    viewModel.resetCount()
                 }
             }
         // Add the observer to the lifecycle
@@ -60,14 +63,14 @@ fun MainScreen(mainViewModel: MainViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Click count ${mainViewModel.mClickCount}")
+        Text(text = "Click count ${viewModel.mClickCount}")
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = {
-                mainViewModel.incrementCount()
+                viewModel.incrementCount()
             }, colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
         ) {
-            Text(text = "Click Me")
+            Text(text = stringResource(R.string.txt_click_me))
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.chichi289.assignments.presentation.screens
+package com.chichi289.assignments.presentation.screens.week1
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor() : ViewModel() {
+class CounterViewModel @Inject constructor() : ViewModel() {
 
     var mClickCount by mutableStateOf(0)
 

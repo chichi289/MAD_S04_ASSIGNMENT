@@ -1,9 +1,10 @@
-package com.chichi289.assignments.presentation.screens
+package com.chichi289.assignments.presentation.screens.week2
 
-import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -18,17 +19,18 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -39,75 +41,70 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.chichi289.assignments.R
 import com.chichi289.assignments.data.model.User
-import com.chichi289.assignments.domain.UserRepository
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UserListScreen(userRepository: UserRepository) {
+fun UserListScreen(
+    viewModel: UserListViewModel = hiltViewModel()
+) {
 
-    Log.e("CHIRAG", "UserListScreen")
-
-    val scope = rememberCoroutineScope()
-
-    val users = remember {
-        mutableStateListOf<User>()
-    }
+    val users by viewModel.users.observeAsState()
 
     LaunchedEffect(Unit) {
-        scope.launch {
-            users.addAll(userRepository.getUsersNormal())
-        }
+        viewModel.getUsers()
     }
 
     val context = LocalContext.current
 
     Column {
-        Log.e("CHIRAG", "Column")
         TopAppBar(title = {
             Text(text = stringResource(R.string.txt_users))
         })
 
-        if (users.isEmpty()) {
-            CircularProgressIndicator()
+        if (users.isNullOrEmpty()) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+                CircularProgressIndicator()
+            }
         } else {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(8.dp)
-            ) {
-                Log.e("CHIRAG", "LazyColumn")
-                items(count = users.size,
-                    key = { it },
-                    itemContent = { index ->
+            users?.let { list->
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(8.dp)
+                ) {
+                    items(count = list.size,
+                        key = { it },
+                        itemContent = { index ->
+                            UserItem(
+                                index = index + 1, user = list[index]
+                            ) { selectedUser ->
+                                Toast.makeText(
+                                    context, context.getString(
+                                        R.string.msg_you_have_clicked_on_s, selectedUser.userName
+                                    ), Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        })
+
+                    /*itemsIndexed(
+                        users
+                    ) { index, user ->
                         UserItem(
-                            index = index + 1, user = users[index]
+                            index = index + 1, user = user
                         ) { selectedUser ->
                             Toast.makeText(
-                                context, context.getString(
-                                    R.string.msg_you_have_clicked_on_s, selectedUser.userName
-                                ), Toast.LENGTH_SHORT
+                                context,
+                                context.getString(
+                                    R.string.msg_you_have_clicked_on_s,
+                                    selectedUser.userName
+                                ),
+                                Toast.LENGTH_SHORT
                             ).show()
                         }
-                    })
-
-                /*itemsIndexed(
-                    users
-                ) { index, user ->
-                    UserItem(
-                        index = index + 1, user = user
-                    ) { selectedUser ->
-                        Toast.makeText(
-                            context,
-                            context.getString(
-                                R.string.msg_you_have_clicked_on_s,
-                                selectedUser.userName
-                            ),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }*/
+                    }*/
+                }
             }
         }
     }
@@ -115,22 +112,26 @@ fun UserListScreen(userRepository: UserRepository) {
 
 @Composable
 fun UserItem(index: Int, user: User, onClick: (User) -> Unit) {
-    Log.e("CHIRAG", "UserItem")
     Card(
         modifier = Modifier
-            .fillMaxWidth()
             .padding(8.dp)
+            .fillMaxWidth()
             .clickable {
                 onClick.invoke(user)
             },
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 1.dp
+        ),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.LightGray
         ),
     ) {
-        Log.e("CHIRAG", "Card")
         Column(
-            modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer)
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
                 modifier = Modifier
@@ -153,14 +154,17 @@ fun UserItem(index: Int, user: User, onClick: (User) -> Unit) {
             Spacer(modifier = Modifier.height(6.dp))
             Text(
                 modifier = Modifier
-                    .padding(10.dp)
                     .drawBehind {
                         drawCircle(
-                            color = Color.Gray, radius = this.size.maxDimension
+                            color = Color.Gray,
+                            radius = this.size.maxDimension / 1.5f,
+                            style = Stroke(width = 4f)
                         )
-                    }, text = index.toString(), color = Color.White
+                    },
+                text = index.toString(),
+                color = Color.Black
             )
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(12.dp))
         }
     }
 }

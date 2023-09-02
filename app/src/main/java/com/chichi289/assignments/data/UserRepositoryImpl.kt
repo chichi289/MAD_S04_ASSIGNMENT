@@ -1,12 +1,14 @@
 package com.chichi289.assignments.data
 
 import com.chichi289.assignments.data.model.User
-import com.chichi289.assignments.domain.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.random.Random
 
-class UserDataSource : UserRepository {
+@Singleton
+class UserRepositoryImpl @Inject constructor() {
 
     private fun generateRandomUser(): User {
 
@@ -37,13 +39,13 @@ class UserDataSource : UserRepository {
         )
     }
 
-    override suspend fun getUsers(): List<User> {
+    suspend fun getUsers(): List<User> {
         return withContext(Dispatchers.IO) {
             generateSequence { generateRandomUser() }.take(100).toList()
         }
     }
 
-    override suspend fun getUsersNormal(): List<User> {
+    suspend fun getUsersNormal(): List<User> {
         val list = ArrayList<User>()
         repeat(100) {
             list.addAll(generateSequence { generateRandomUser() }.take(1).toList())
