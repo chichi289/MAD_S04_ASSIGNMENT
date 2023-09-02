@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.chichi289.assignment1'
+    namespace 'com.chichi289.assignments'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.chichi289.assignment1"
+        applicationId namespace
         minSdk 24
         //noinspection OldTargetApi
         targetSdk 33
@@ -67,7 +67,9 @@ dependencies {
     implementation 'androidx.compose.material3:material3'
 
     // Dagger Hilt
+    //noinspection GradleDependency
     implementation "com.google.dagger:hilt-android:2.44"
+    //noinspection GradleDependency
     kapt "com.google.dagger:hilt-compiler:2.44"
 
     testImplementation 'junit:junit:4.13.2'
