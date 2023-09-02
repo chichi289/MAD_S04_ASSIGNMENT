@@ -7,6 +7,11 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.random.Random
 
+/*
+* Directly injected UserRepositoryImpl instead of UserRepository from AppModule
+* due to Dagger hilt compile time error. I will fix it in future
+* */
+
 @Singleton
 class UserRepositoryImpl @Inject constructor() {
 
@@ -16,7 +21,6 @@ class UserRepositoryImpl @Inject constructor() {
         val userId = Random.nextLong(10000001, 88888888)
 
         // 6-character alphanumeric username
-
         val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
         val userName = (1..6)
             .map { allowedChars.random() }
@@ -24,12 +28,12 @@ class UserRepositoryImpl @Inject constructor() {
 
         // Random full name up to 20 characters
         val fullNameLength = Random.nextInt(5, 20)
-        val fullName = (5..fullNameLength)
+        val fullName = (1..fullNameLength)
             .map { ('A'..'Z').random() }
             .joinToString("")
 
         // Dummy email
-        val email = "${userName.lowercase()}@example.com"
+        val email = "${userName.lowercase()}@xyz.com"
 
         return User(
             userId = userId,
@@ -43,13 +47,5 @@ class UserRepositoryImpl @Inject constructor() {
         return withContext(Dispatchers.IO) {
             generateSequence { generateRandomUser() }.take(100).toList()
         }
-    }
-
-    suspend fun getUsersNormal(): List<User> {
-        val list = ArrayList<User>()
-        repeat(100) {
-            list.addAll(generateSequence { generateRandomUser() }.take(1).toList())
-        }
-        return list
     }
 }

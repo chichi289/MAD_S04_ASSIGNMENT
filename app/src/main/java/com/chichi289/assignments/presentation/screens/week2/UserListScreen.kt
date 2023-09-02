@@ -34,9 +34,9 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -65,11 +65,11 @@ fun UserListScreen(
         })
 
         if (users.isNullOrEmpty()) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
             }
         } else {
-            users?.let { list->
+            users?.let { list ->
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = PaddingValues(8.dp)
@@ -139,14 +139,16 @@ fun UserItem(index: Int, user: User, onClick: (User) -> Unit) {
                     .padding(8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Column {
+                Column(
+                    Modifier.weight(0.5f)
+                ) {
                     CustomText(
                         key = stringResource(R.string.txt_userid), value = user.userId.toString()
                     )
                     CustomText(key = stringResource(R.string.txt_username), value = user.userName)
                 }
 
-                Column {
+                Column(Modifier.weight(0.5f)) {
                     CustomText(key = stringResource(R.string.txt_fullname), value = user.fullName)
                     CustomText(key = stringResource(R.string.txt_email), value = user.email)
                 }
@@ -162,6 +164,7 @@ fun UserItem(index: Int, user: User, onClick: (User) -> Unit) {
                         )
                     },
                 text = index.toString(),
+                fontSize = 14.sp,
                 color = Color.Black
             )
             Spacer(modifier = Modifier.height(12.dp))
@@ -185,9 +188,10 @@ fun CustomText(key: String, value: String) {
     }
 
     Text(
-        text = finalString, style = TextStyle(
-            fontSize = 14.sp
-        )
+        text = finalString,
+        fontSize = 12.sp,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis
     )
 }
 
