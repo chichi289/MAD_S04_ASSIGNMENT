@@ -12,5 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Assignment1"
+rootProject.name = "MAD_S04_ASSIGNMENT"
 include ':app'
+include ':week2'
