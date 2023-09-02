@@ -4,7 +4,11 @@ The Click Counter App is a simple Android application built using Jetpack Compos
 
 ## Week1
 
-https://github.com/chichi289/MAD_S04_ASSIGNMENT/assets/20377949/598202f2-0877-4376-8dac-acc76328f5d8
+https://github.com/chichi289/MAD_S04_ASSIGNMENT/assets/20377949/42ae0f36-1987-45bb-9b5e-c305973db6d7
+
+## Week2
+
+https://github.com/chichi289/MAD_S04_ASSIGNMENT/assets/20377949/12f4510f-22de-4a95-9146-461ab5d95fb2
 
 ## Build for testing
 
