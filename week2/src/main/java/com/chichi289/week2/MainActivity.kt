@@ -10,9 +10,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.chichi289.week2.data.UserDataSource
+import com.chichi289.week2.domain.UserRepository
+import com.chichi289.week2.presentation.screens.UserListScreen
 import com.chichi289.week2.ui.theme.MAD_S04_ASSIGNMENTTheme
 
 class MainActivity : ComponentActivity() {
+
+    private val userRepository: UserRepository by lazy {
+        UserDataSource()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -22,7 +30,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    UserListScreen(userRepository.getUsers())
                 }
             }
         }
