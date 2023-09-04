@@ -204,7 +204,7 @@ fun UserItemPreview() {
             userId = 12345678L,
             userName = "chichi289",
             fullName = "Chirag Prajapati",
-            email = "chirag@example.com"
+            email = "chiragrprajapati28@gmail.com"
         )
     ) {}
 }
