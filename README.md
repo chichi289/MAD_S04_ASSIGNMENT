@@ -8,4 +8,6 @@ https://github.com/chichi289/MAD_S04_ASSIGNMENT/assets/20377949/4ebd30db-360d-4e
 
 A simple Jetpack Compose application that displays a list of randomly generated users using Kotlin sequences.
 
-https://github.com/chichi289/MAD_S04_ASSIGNMENT/assets/20377949/af69e84b-8a97-4720-b6cb-fe0bc6d56f2d
+https://github.com/chichi289/MAD_S04_ASSIGNMENT/assets/20377949/2b43daec-5e5c-4377-bcc9-7437aa59e0ce
+
+
