@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.chichi289.week2.data.model.User
 import com.chichi289.week2.domain.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,7 +20,7 @@ class UserListViewModel @Inject constructor(
     val users: LiveData<List<User>> = _users
 
     fun getUsers() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             // Simulate network request
             delay(1500)
             _users.postValue(userRepository.getUsers())

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -21,7 +22,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -42,13 +42,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.chichi289.week2.data.model.User
 import com.chichi289.week2.R
+import com.chichi289.week2.data.model.User
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserListScreen(
-    viewModel: UserListViewModel = hiltViewModel()
+    modifier: Modifier, viewModel: UserListViewModel = hiltViewModel()
 ) {
 
     val users by viewModel.users.observeAsState()
@@ -59,10 +59,9 @@ fun UserListScreen(
 
     val context = LocalContext.current
 
-    Column {
-        TopAppBar(title = {
-            Text(text = stringResource(R.string.txt_users))
-        })
+    Column(
+        modifier = modifier
+    ) {
 
         if (users.isNullOrEmpty()) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -71,39 +70,21 @@ fun UserListScreen(
         } else {
             users?.let { list ->
                 LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(8.dp)
+                    modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(8.dp)
                 ) {
-                    items(count = list.size,
-                        key = { it },
-                        itemContent = { index ->
-                            UserItem(
-                                index = index + 1, user = list[index]
-                            ) { selectedUser ->
-                                Toast.makeText(
-                                    context, context.getString(
-                                        R.string.msg_you_have_clicked_on_s, selectedUser.userName
-                                    ), Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        })
-
-                    /*itemsIndexed(
-                        users
-                    ) { index, user ->
+                    itemsIndexed(items = list, key = { index, _ ->
+                        index
+                    }) { index, user ->
                         UserItem(
                             index = index + 1, user = user
                         ) { selectedUser ->
                             Toast.makeText(
-                                context,
-                                context.getString(
-                                    R.string.msg_you_have_clicked_on_s,
-                                    selectedUser.userName
-                                ),
-                                Toast.LENGTH_SHORT
+                                context, context.getString(
+                                    R.string.msg_you_have_clicked_on_s, selectedUser.userName
+                                ), Toast.LENGTH_SHORT
                             ).show()
                         }
-                    }*/
+                    }
                 }
             }
         }
@@ -130,8 +111,7 @@ fun UserItem(index: Int, user: User, onClick: (User) -> Unit) {
         Column(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.primaryContainer)
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
                 modifier = Modifier
@@ -155,17 +135,13 @@ fun UserItem(index: Int, user: User, onClick: (User) -> Unit) {
             }
             Spacer(modifier = Modifier.height(6.dp))
             Text(
-                modifier = Modifier
-                    .drawBehind {
+                modifier = Modifier.drawBehind {
                         drawCircle(
                             color = Color.Gray,
                             radius = this.size.maxDimension / 1.5f,
                             style = Stroke(width = 4f)
                         )
-                    },
-                text = index.toString(),
-                fontSize = 14.sp,
-                color = Color.Black
+                    }, text = index.toString(), fontSize = 14.sp, color = Color.Black
             )
             Spacer(modifier = Modifier.height(12.dp))
         }
@@ -188,10 +164,7 @@ fun CustomText(key: String, value: String) {
     }
 
     Text(
-        text = finalString,
-        fontSize = 12.sp,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis
+        text = finalString, fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis
     )
 }
 
@@ -199,8 +172,7 @@ fun CustomText(key: String, value: String) {
 @Composable
 fun UserItemPreview() {
     UserItem(
-        1,
-        User(
+        1, User(
             userId = 12345678L,
             userName = "chichi289",
             fullName = "Chirag Prajapati",
