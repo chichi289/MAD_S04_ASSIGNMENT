@@ -19,13 +19,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -45,13 +44,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.chichi289.week2.R
 import com.chichi289.week2.data.model.User
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserListScreen(
     modifier: Modifier, viewModel: UserListViewModel = hiltViewModel()
 ) {
 
-    val users by viewModel.users.observeAsState()
+    val users by viewModel.users.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.getUsers()
@@ -62,28 +60,26 @@ fun UserListScreen(
     Column(
         modifier = modifier
     ) {
-
-        if (users.isNullOrEmpty()) {
+        if (users.isEmpty()) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
             }
         } else {
-            users?.let { list ->
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(8.dp)
-                ) {
-                    itemsIndexed(items = list, key = { index, _ ->
-                        index
-                    }) { index, user ->
-                        UserItem(
-                            index = index + 1, user = user
-                        ) { selectedUser ->
-                            Toast.makeText(
-                                context, context.getString(
-                                    R.string.msg_you_have_clicked_on_s, selectedUser.userName
-                                ), Toast.LENGTH_SHORT
-                            ).show()
-                        }
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(8.dp)
+            ) {
+                itemsIndexed(
+                    items = users,
+                    key = { index, _ -> index }
+                ) { index, user ->
+                    UserItem(
+                        index = index + 1, user = user
+                    ) { selectedUser ->
+                        Toast.makeText(
+                            context, context.getString(
+                                R.string.msg_you_have_clicked_on_s, selectedUser.userName
+                            ), Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -136,12 +132,12 @@ fun UserItem(index: Int, user: User, onClick: (User) -> Unit) {
             Spacer(modifier = Modifier.height(6.dp))
             Text(
                 modifier = Modifier.drawBehind {
-                        drawCircle(
-                            color = Color.Gray,
-                            radius = this.size.maxDimension / 1.5f,
-                            style = Stroke(width = 4f)
-                        )
-                    }, text = index.toString(), fontSize = 14.sp, color = Color.Black
+                    drawCircle(
+                        color = Color.Gray,
+                        radius = this.size.maxDimension / 1.5f,
+                        style = Stroke(width = 4f)
+                    )
+                }, text = index.toString(), fontSize = 14.sp, color = Color.Black
             )
             Spacer(modifier = Modifier.height(12.dp))
         }

@@ -2,6 +2,8 @@ package com.chichi289.week2.data
 
 import com.chichi289.week2.data.model.User
 import com.chichi289.week2.domain.UserRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.random.Random
