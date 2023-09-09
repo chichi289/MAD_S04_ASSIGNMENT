@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "MAD_S04_ASSIGNMENT"
 include ':app'
 include ':week2'
+include ':week3'
