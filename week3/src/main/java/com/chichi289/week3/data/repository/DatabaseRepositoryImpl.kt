@@ -11,6 +11,7 @@ import javax.inject.Singleton
 class DatabaseRepositoryImpl @Inject constructor(
     private val userDao: UserDao
 ) : DatabaseRepository {
+
     override fun insertAll(vararg users: User) {
         userDao.insertAll(*users)
     }

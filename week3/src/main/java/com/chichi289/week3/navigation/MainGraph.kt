@@ -19,8 +19,8 @@ fun MainGraph(
         composable(Screen.WELCOME_SCREEN.route) {
             WelcomeScreen(
                 modifier = Modifier.padding(paddingValues),
-                onClickAddUsers = {
-
+                onUserAddedToDb = {
+                    navController.navigate(Screen.USER_LIST_SCREEN.route)
                 }
             )
         }
