@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">week3</string>
+    <string name="app_name">MAD_S04-Week3</string>
+    <string name="txt_userid">UserID</string>
+    <string name="txt_username">Username</string>
+    <string name="txt_fullname">Fullname</string>
+    <string name="txt_email">Email</string>
+    <string name="msg_you_have_clicked_on_s">You\'ve clicked on %s</string>
 </resources>
