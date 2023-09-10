@@ -3,10 +3,8 @@ package com.chichi289.week3.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.chichi289.week3.data.model.User
 import com.chichi289.week3.presentation.user_detail_screen.UserDetailScreen
 import com.chichi289.week3.presentation.user_list_screen.UserListScreen
@@ -32,15 +30,7 @@ fun MainGraph(
                 }
             )
         }
-        composable(
-            route = Screen.UserListScreen.route,
-            arguments = listOf(
-                navArgument(name = "user") {
-                    type = NavType.ParcelableType(User::class.java)
-                    nullable = false
-                }
-            )
-        ) {
+        composable(Screen.UserListScreen.route) {
             UserListScreen(
                 modifier = modifier,
                 onUserClicked = { user ->

@@ -58,8 +58,8 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun getStartDestination(): String {
-        val b = runBlocking { localRepository.usersAddedInDb.first() }
-        return if (b) Screen.UserListScreen.route
+        val result = runBlocking { localRepository.usersAddedInDb.first() }
+        return if (result) Screen.UserListScreen.route
         else Screen.WelcomeScreen.route
     }
 
