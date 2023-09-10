@@ -37,6 +37,6 @@ class InMemoryRepositoryImpl @Inject constructor() : InMemoryRepository {
         )
     }
 
-    override fun getUsers(): List<User> =
-        generateSequence { generateRandomUser() }.take(5).toList()
+    override fun getUsers(count: Int): List<User> =
+        generateSequence { generateRandomUser() }.take(count).toList()
 }

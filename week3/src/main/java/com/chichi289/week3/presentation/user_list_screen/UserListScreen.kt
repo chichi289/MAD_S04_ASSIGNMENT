@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -45,14 +46,16 @@ import com.chichi289.week3.data.model.User
 
 @Composable
 fun UserListScreen(
-    modifier: Modifier, viewModel: UserListViewModel = hiltViewModel()
+    modifier: Modifier,
+    viewModel: UserListViewModel = hiltViewModel()
 ) {
 
     val users by viewModel.users.collectAsState(emptyList())
     val context = LocalContext.current
 
     Column(
-        modifier = modifier
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (users.isEmpty()) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -60,7 +63,9 @@ fun UserListScreen(
             }
         } else {
             LazyColumn(
-                modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(8.dp)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(1f), contentPadding = PaddingValues(8.dp)
             ) {
                 itemsIndexed(
                     items = users,
@@ -76,6 +81,11 @@ fun UserListScreen(
                         ).show()
                     }
                 }
+            }
+            Button(onClick = {
+                viewModel.addOneUserToDb()
+            }) {
+                Text(text = stringResource(R.string.txt_add_user))
             }
         }
     }
