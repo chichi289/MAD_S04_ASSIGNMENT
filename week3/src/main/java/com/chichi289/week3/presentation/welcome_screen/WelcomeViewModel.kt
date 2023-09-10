@@ -17,8 +17,6 @@ class WelcomeViewModel @Inject constructor(
     private val localRepository: LocalRepository
 ) : ViewModel() {
 
-    var dbUsers = databaseRepository.getAllUsers()
-
     fun saveUserToDatabase() {
         val users = inMemoryUserRepository.getUsers()
         viewModelScope.launch(Dispatchers.IO) {

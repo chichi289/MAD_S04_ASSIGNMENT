@@ -18,20 +18,12 @@ fun WelcomeScreen(
     viewModel: WelcomeViewModel = hiltViewModel(),
     onUserAddedToDb: () -> Unit
 ) {
-
-    // val databaseUsers by viewModel.dbUsers.collectAsState(emptyList())
-
-    // val mOnUserAddedToDb by rememberUpdatedState(newValue = onUserAddedToDb)
-
     Column(
         modifier = modifier
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        /* if (databaseUsers.isNotEmpty()) {
-             mOnUserAddedToDb.invoke()
-         }*/
         Button(onClick = {
             viewModel.saveUserToDatabase()
             onUserAddedToDb.invoke()
