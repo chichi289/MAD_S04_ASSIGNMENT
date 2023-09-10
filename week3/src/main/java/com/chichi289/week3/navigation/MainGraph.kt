@@ -19,7 +19,11 @@ fun MainGraph(
             WelcomeScreen(
                 modifier = modifier,
                 onUserAddedToDb = {
-                    navController.navigate(Screen.USER_LIST_SCREEN.route)
+                    navController.navigate(Screen.USER_LIST_SCREEN.route) {
+                        popUpTo(Screen.WELCOME_SCREEN.route) {
+                            inclusive = true
+                        }
+                    }
                 }
             )
         }
