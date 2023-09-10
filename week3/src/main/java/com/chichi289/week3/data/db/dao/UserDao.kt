@@ -13,5 +13,5 @@ interface UserDao {
     fun insertAll(vararg users: User)
 
     @Query("select * from user")
-    suspend fun getAllUsers():Flow<List<User>>
+    fun getAllUsers(): Flow<List<User>>
 }

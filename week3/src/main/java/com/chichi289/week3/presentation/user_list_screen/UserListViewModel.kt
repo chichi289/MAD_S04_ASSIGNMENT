@@ -3,7 +3,7 @@ package com.chichi289.week3.presentation.user_list_screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chichi289.week3.data.model.User
-import com.chichi289.week3.domain.UserRepository
+import com.chichi289.week3.domain.InMemoryUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserListViewModel @Inject constructor(
-    private val userRepository: UserRepository
+    private val userRepository: InMemoryUserRepository
 ) : ViewModel() {
 
     private val _users: MutableStateFlow<List<User>> = MutableStateFlow(emptyList())

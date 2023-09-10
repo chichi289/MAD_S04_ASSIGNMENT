@@ -1,7 +1,7 @@
 package com.chichi289.week3.di
 
-import com.chichi289.week3.domain.UserRepository
-import com.chichi289.week3.data.UserRepositoryImpl
+import com.chichi289.week3.domain.InMemoryUserRepository
+import com.chichi289.week3.data.repository.InMemoryUserRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -12,5 +12,5 @@ import dagger.hilt.components.SingletonComponent
 abstract class UserModule {
 
     @Binds
-    abstract fun provideUserRepository(userRepositoryImpl: UserRepositoryImpl): UserRepository
+    abstract fun provideUserRepository(userRepositoryImpl: InMemoryUserRepositoryImpl): InMemoryUserRepository
 }

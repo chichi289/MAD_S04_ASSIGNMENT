@@ -1,13 +1,13 @@
-package com.chichi289.week3.data
+package com.chichi289.week3.data.repository
 
 import com.chichi289.week3.data.model.User
-import com.chichi289.week3.domain.UserRepository
+import com.chichi289.week3.domain.InMemoryUserRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.random.Random
 
 @Singleton
-class UserRepositoryImpl @Inject constructor() : UserRepository {
+class InMemoryUserRepositoryImpl @Inject constructor() : InMemoryUserRepository {
 
     private fun generateRandomUser(): User {
 
