@@ -5,8 +5,10 @@ import kotlinx.coroutines.flow.Flow
 
 interface DatabaseRepository {
 
-    fun insertAll(vararg users: User)
+    fun insertUsers(vararg users: User)
 
-    fun getAllUsers(): Flow<List<User>>
+    fun getUsers(): Flow<List<User>>
+
+    fun deleteUser(user: User)
 
 }

@@ -58,9 +58,9 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun getStartDestination(): String {
-        val b = runBlocking { localRepository.isUserStoredInDb.first() }
-        return if (b) Screen.USER_LIST_SCREEN.route
-        else Screen.WELCOME_SCREEN.route
+        val b = runBlocking { localRepository.usersAddedInDb.first() }
+        return if (b) Screen.UserListScreen.route
+        else Screen.WelcomeScreen.route
     }
 
 }

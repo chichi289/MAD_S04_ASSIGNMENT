@@ -15,12 +15,12 @@ class UserListViewModel @Inject constructor(
     private val inMemoryRepository: InMemoryRepository,
 ) : ViewModel() {
 
-    var users = databaseRepository.getAllUsers()
+    var users = databaseRepository.getUsers()
 
     fun addOneUserToDb() {
         val user = inMemoryRepository.getUsers(1)
         viewModelScope.launch(Dispatchers.IO) {
-            databaseRepository.insertAll(*user.toTypedArray())
+            databaseRepository.insertUsers(*user.toTypedArray())
         }
     }
 

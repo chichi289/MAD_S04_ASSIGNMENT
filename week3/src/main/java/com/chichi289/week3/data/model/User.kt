@@ -1,9 +1,12 @@
 package com.chichi289.week3.data.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity(tableName = "user")
 data class User(
     @PrimaryKey(autoGenerate = true)
@@ -16,7 +19,7 @@ data class User(
     val fullName: String,
     @ColumnInfo(name = "email")
     val email: String
-){
+) : Parcelable {
 
     // Due to https://stackoverflow.com/a/73048506
     override fun equals(other: Any?): Boolean {

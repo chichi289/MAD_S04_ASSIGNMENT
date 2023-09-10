@@ -24,10 +24,10 @@ class LocalRepositoryImpl @Inject constructor(
 ) : LocalRepository {
 
     private object PreferencesKeys {
-        val KEY_USER_ADDED_TO_DB = booleanPreferencesKey("is_user_added_to_db")
+        val KEY_USERS_ADDED_TO_DB = booleanPreferencesKey("users_added_to_db")
     }
 
-    override var isUserStoredInDb: Flow<Boolean> = context.dataStore.data.catch { exception ->
+    override var usersAddedInDb: Flow<Boolean> = context.dataStore.data.catch { exception ->
         // dataStore.data throws an IOException when an error is encountered when reading data
         if (exception is IOException) {
             emit(emptyPreferences())
@@ -36,12 +36,12 @@ class LocalRepositoryImpl @Inject constructor(
         }
 
     }.map { preferences ->
-        preferences[PreferencesKeys.KEY_USER_ADDED_TO_DB] ?: false
+        preferences[PreferencesKeys.KEY_USERS_ADDED_TO_DB] ?: false
     }
 
-    override suspend fun setUserAddedToDb(b: Boolean) {
+    override suspend fun setUsersAddedToDb(b: Boolean) {
         context.dataStore.edit { preferences ->
-            preferences[PreferencesKeys.KEY_USER_ADDED_TO_DB] = b
+            preferences[PreferencesKeys.KEY_USERS_ADDED_TO_DB] = b
         }
     }
 

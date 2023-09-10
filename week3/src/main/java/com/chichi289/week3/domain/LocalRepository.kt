@@ -4,8 +4,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocalRepository {
 
-    var isUserStoredInDb: Flow<Boolean>
+    var usersAddedInDb: Flow<Boolean>
 
-    suspend fun setUserAddedToDb(b: Boolean)
+    suspend fun setUsersAddedToDb(b: Boolean)
 
 }

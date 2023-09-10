@@ -1,6 +1,5 @@
 package com.chichi289.week3.presentation.user_list_screen
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -32,29 +31,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.chichi289.week3.R
 import com.chichi289.week3.data.model.User
+import com.chichi289.week3.ui.components.CustomText
 import kotlinx.coroutines.launch
 
 @Composable
 fun UserListScreen(
     modifier: Modifier,
+    onUserClicked: (User) -> Unit,
     viewModel: UserListViewModel = hiltViewModel()
 ) {
 
     val users by viewModel.users.collectAsState(emptyList())
-    val context = LocalContext.current
 
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
@@ -82,11 +76,7 @@ fun UserListScreen(
                     UserItem(
                         index = index + 1, user = user
                     ) { selectedUser ->
-                        Toast.makeText(
-                            context, context.getString(
-                                R.string.msg_you_have_clicked_on_s, selectedUser.userName
-                            ), Toast.LENGTH_SHORT
-                        ).show()
+                        onUserClicked.invoke(selectedUser)
                     }
                 }
             }
@@ -157,26 +147,6 @@ fun UserItem(index: Int, user: User, onClick: (User) -> Unit) {
             Spacer(modifier = Modifier.height(12.dp))
         }
     }
-}
-
-@Composable
-fun CustomText(key: String, value: String) {
-
-    val finalString = buildAnnotatedString {
-        append(key)
-        append(": ")
-        withStyle(
-            style = SpanStyle(
-                color = Color.Black, fontWeight = FontWeight.Bold
-            )
-        ) {
-            append(value)
-        }
-    }
-
-    Text(
-        text = finalString, fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis
-    )
 }
 
 @Preview

@@ -12,9 +12,13 @@ class DatabaseRepositoryImpl @Inject constructor(
     private val userDao: UserDao
 ) : DatabaseRepository {
 
-    override fun insertAll(vararg users: User) {
+    override fun insertUsers(vararg users: User) {
         userDao.insertAll(*users)
     }
 
-    override fun getAllUsers(): Flow<List<User>> = userDao.getAllUsers()
+    override fun getUsers(): Flow<List<User>> = userDao.getAllUsers()
+
+    override fun deleteUser(user: User) {
+        userDao.deleteUser(user)
+    }
 }
