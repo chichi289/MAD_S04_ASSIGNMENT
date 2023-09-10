@@ -24,7 +24,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -49,10 +48,7 @@ fun UserListScreen(
     modifier: Modifier, viewModel: UserListViewModel = hiltViewModel()
 ) {
 
-    val users by remember { viewModel.users }.collectAsState()
-
-   // val users = emptyList<User>()
-
+    val users by viewModel.users.collectAsState(emptyList())
     val context = LocalContext.current
 
     Column(

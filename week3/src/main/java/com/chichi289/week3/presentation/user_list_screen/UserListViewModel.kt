@@ -15,10 +15,6 @@ class UserListViewModel @Inject constructor(
     databaseRepository: DatabaseRepository
 ) : ViewModel() {
 
-    var users: StateFlow<List<User>> = databaseRepository.getAllUsers().stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        emptyList()
-    )
+    var users= databaseRepository.getAllUsers()
 
 }

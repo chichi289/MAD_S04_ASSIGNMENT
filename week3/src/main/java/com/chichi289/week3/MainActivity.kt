@@ -13,12 +13,21 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.rememberNavController
+import com.chichi289.week3.domain.LocalRepository
 import com.chichi289.week3.navigation.MainGraph
+import com.chichi289.week3.navigation.Screen
 import com.chichi289.week3.ui.theme.MAD_S04_ASSIGNMENTTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var localRepository: LocalRepository
+
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +45,21 @@ class MainActivity : ComponentActivity() {
                             })
                         }
                     ) { paddingValues ->
-                        MainGraph(paddingValues, rememberNavController())
+                        MainGraph(
+                            paddingValues = paddingValues,
+                            startDestination = getStartDestination(),
+                            navController = rememberNavController()
+                        )
                     }
                 }
             }
         }
     }
+
+    private fun getStartDestination(): String {
+        val b = runBlocking { localRepository.isUserStoredInDb.first() }
+        return if (b) Screen.USER_LIST_SCREEN.route
+        else Screen.WELCOME_SCREEN.route
+    }
+
 }
