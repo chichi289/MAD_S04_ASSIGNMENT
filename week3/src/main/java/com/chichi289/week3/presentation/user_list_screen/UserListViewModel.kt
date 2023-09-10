@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chichi289.week3.domain.DatabaseRepository
 import com.chichi289.week3.domain.InMemoryRepository
+import com.chichi289.week3.domain.LocalRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,6 +14,7 @@ import javax.inject.Inject
 class UserListViewModel @Inject constructor(
     private val databaseRepository: DatabaseRepository,
     private val inMemoryRepository: InMemoryRepository,
+    private val localRepository: LocalRepository
 ) : ViewModel() {
 
     var users = databaseRepository.getUsers()
@@ -21,6 +23,12 @@ class UserListViewModel @Inject constructor(
         val user = inMemoryRepository.getUsers(1)
         viewModelScope.launch(Dispatchers.IO) {
             databaseRepository.insertUsers(*user.toTypedArray())
+        }
+    }
+
+    fun resetUsersAddedToDb() {
+        viewModelScope.launch(Dispatchers.IO) {
+            localRepository.setUsersAddedToDb(false)
         }
     }
 

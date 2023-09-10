@@ -23,6 +23,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
@@ -39,12 +40,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.chichi289.week3.R
 import com.chichi289.week3.data.model.User
 import com.chichi289.week3.ui.components.CustomText
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
 fun UserListScreen(
     modifier: Modifier,
     onUserClicked: (User) -> Unit,
+    onWelcomeScreen: () -> Unit,
     viewModel: UserListViewModel = hiltViewModel()
 ) {
 
@@ -52,6 +55,14 @@ fun UserListScreen(
 
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(users) {
+        delay(1500)
+        if (users.isEmpty()) {
+            viewModel.resetUsersAddedToDb()
+            onWelcomeScreen.invoke()
+        }
+    }
 
     Column(
         modifier = modifier,

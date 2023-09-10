@@ -38,6 +38,12 @@ fun MainGraph(
                         set(KEY_USER, user)
                     }
                     navController.navigate(Screen.UserDetailScreen.route)
+                },
+                onWelcomeScreen = {
+                    navController.navigate(Screen.WelcomeScreen.route){
+                        // Clear backstack
+                        popUpTo(0)
+                    }
                 }
             )
         }
