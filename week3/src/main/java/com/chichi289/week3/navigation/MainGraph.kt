@@ -8,15 +8,21 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.chichi289.week3.presentation.user_list_screen.UserListScreen
+import com.chichi289.week3.presentation.welcome_screen.WelcomeScreen
 
 @Composable
 fun MainGraph(
     paddingValues: PaddingValues,
     navController: NavHostController
 ) {
-    NavHost(navController = navController, startDestination = Screen.USER_LIST_SCREEN.route) {
+    NavHost(navController = navController, startDestination = Screen.WELCOME_SCREEN.route) {
         composable(Screen.WELCOME_SCREEN.route) {
+            WelcomeScreen(
+                modifier = Modifier.padding(paddingValues),
+                onClickAddUsers = {
 
+                }
+            )
         }
         composable(Screen.USER_LIST_SCREEN.route) {
             UserListScreen(Modifier.padding(paddingValues))
