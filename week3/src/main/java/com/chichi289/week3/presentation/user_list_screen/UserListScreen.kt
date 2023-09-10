@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -25,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -43,6 +45,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.chichi289.week3.R
 import com.chichi289.week3.data.model.User
+import kotlinx.coroutines.launch
 
 @Composable
 fun UserListScreen(
@@ -52,6 +55,9 @@ fun UserListScreen(
 
     val users by viewModel.users.collectAsState(emptyList())
     val context = LocalContext.current
+
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = modifier,
@@ -65,7 +71,9 @@ fun UserListScreen(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .weight(1f), contentPadding = PaddingValues(8.dp)
+                    .weight(1f),
+                contentPadding = PaddingValues(8.dp),
+                state = listState
             ) {
                 itemsIndexed(
                     items = users,
@@ -84,6 +92,9 @@ fun UserListScreen(
             }
             Button(onClick = {
                 viewModel.addOneUserToDb()
+                coroutineScope.launch {
+                    listState.animateScrollToItem(index = users.size - 1)
+                }
             }) {
                 Text(text = stringResource(R.string.txt_add_user))
             }
