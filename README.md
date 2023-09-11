@@ -10,9 +10,15 @@ A simple Jetpack Compose application that displays a list of randomly generated 
 
 https://github.com/chichi289/MAD_S04_ASSIGNMENT/assets/20377949/2b43daec-5e5c-4377-bcc9-7437aa59e0ce
 
-## Assignment 3 - UserList App (DataStore & Room Database)
+## Assignment 3 - User Management App (DataStore & Room Database)
 
-## Screenshots
+This is a user management app built using Jetpack Compose. The app allows you to perform the following actions:
+
+- Add generated dummy users to a Room database.
+- Display a list of users on the main screen.
+- Clicking on a user item opens the UserDetailScreen, where you can view user information and delete the user.
+
+## Screenshots & Video
 
 |                                                                     |                                                                     |                                                                      |
 |---------------------------------------------------------------------|---------------------------------------------------------------------|----------------------------------------------------------------------|
