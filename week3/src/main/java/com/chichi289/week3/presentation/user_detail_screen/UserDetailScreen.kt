@@ -2,10 +2,8 @@ package com.chichi289.week3.presentation.user_detail_screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -22,6 +20,7 @@ import com.chichi289.week3.R
 import com.chichi289.week3.data.model.User
 import com.chichi289.week3.ui.components.CustomText
 import com.chichi289.week3.ui.components.HeaderText
+import com.chichi289.week3.ui.components.VerticalSpacer
 
 @Composable
 fun UserDetailScreen(
@@ -48,15 +47,12 @@ fun UserDetailScreen(
                 .background(MaterialTheme.colorScheme.primaryContainer)
                 .padding(8.dp)
         ) {
-            CustomText(
-                key = stringResource(id = R.string.txt_userid),
-                value = user.userId.toString()
-            )
-            Spacer(modifier = Modifier.height(8.dp))
+            CustomText(key = stringResource(id = R.string.txt_userid), value = user.userId.toString())
+            VerticalSpacer(8.dp)
             CustomText(key = stringResource(id = R.string.txt_username), value = user.userName)
-            Spacer(modifier = Modifier.height(8.dp))
+            VerticalSpacer(8.dp)
             CustomText(key = stringResource(id = R.string.txt_full_name), value = user.fullName)
-            Spacer(modifier = Modifier.height(8.dp))
+            VerticalSpacer(8.dp)
             CustomText(key = stringResource(id = R.string.txt_email), value = user.email)
         }
 

@@ -34,6 +34,8 @@ fun MainGraph(
             UserListScreen(
                 modifier = modifier,
                 onUserClicked = { user ->
+                    // If you go back after setting data to currentBackStackEntry
+                    // then It won't be available. Use SharedViewModel for the same
                     navController.currentBackStackEntry?.savedStateHandle?.apply {
                         set(KEY_USER, user)
                     }
