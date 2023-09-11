@@ -9,18 +9,19 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.chichi289.week3.R
 import com.chichi289.week3.data.model.User
 import com.chichi289.week3.ui.components.CustomText
+import com.chichi289.week3.ui.components.HeaderText
 
 @Composable
 fun UserDetailScreen(
@@ -33,17 +34,24 @@ fun UserDetailScreen(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = stringResource(R.string.txt_welcome_to_user_detail_screen))
+
+        HeaderText(
+            modifier = Modifier.padding(top = 8.dp),
+            stringResource(R.string.txt_welcome_to_user_detail_screen)
+        )
 
         Column(
             modifier = Modifier
-                .padding(start = 16.dp, top = 24.dp, end = 16.dp)
+                .padding(16.dp)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(12.dp))
-                .background(Color.LightGray)
+                .background(MaterialTheme.colorScheme.primaryContainer)
                 .padding(8.dp)
         ) {
-            CustomText(key = stringResource(id = R.string.txt_userid), value = user.userId.toString())
+            CustomText(
+                key = stringResource(id = R.string.txt_userid),
+                value = user.userId.toString()
+            )
             Spacer(modifier = Modifier.height(8.dp))
             CustomText(key = stringResource(id = R.string.txt_username), value = user.userName)
             Spacer(modifier = Modifier.height(8.dp))

@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.chichi289.week3.domain.LocalRepository
@@ -61,20 +62,22 @@ class MainActivity : ComponentActivity() {
 
                     Scaffold(
                         topBar = {
-                            TopAppBar(
-                                title = {
-                                    Text(text = stringResource(R.string.txt_user_directory))
-                                },
-                                navigationIcon = {
-                                    if (shouldShowBackButton) {
-                                        IconButton(onClick = { navController.popBackStack() }) {
-                                            Icon(
-                                                Icons.Default.ArrowBack,
-                                                contentDescription = getString(R.string.content_description_back)
-                                            )
+                            Surface(shadowElevation = 3.dp) {
+                                TopAppBar(
+                                    title = {
+                                        Text(text = stringResource(R.string.txt_user_directory))
+                                    },
+                                    navigationIcon = {
+                                        if (shouldShowBackButton) {
+                                            IconButton(onClick = { navController.popBackStack() }) {
+                                                Icon(
+                                                    Icons.Default.ArrowBack,
+                                                    contentDescription = getString(R.string.content_description_back)
+                                                )
+                                            }
                                         }
-                                    }
-                                })
+                                    })
+                            }
                         }) { paddingValues ->
                         MainGraph(
                             modifier = Modifier.padding(paddingValues),

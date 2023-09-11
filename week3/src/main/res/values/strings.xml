@@ -10,6 +10,7 @@
     <string name="txt_add_users">Add Users</string>
     <string name="txt_add_user">Add User</string>
     <string name="txt_welcome_to_user_detail_screen">Welcome to User Detail Screen</string>
+    <string name="txt_welcome_to_user_list_screen">Welcome to User List Screen</string>
     <string name="txt_delete_user">Delete User</string>
     <string name="content_description_back">Back</string>
 </resources>

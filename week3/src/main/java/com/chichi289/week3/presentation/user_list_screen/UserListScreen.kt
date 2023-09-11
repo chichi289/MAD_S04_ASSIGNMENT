@@ -40,6 +40,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.chichi289.week3.R
 import com.chichi289.week3.data.model.User
 import com.chichi289.week3.ui.components.CustomText
+import com.chichi289.week3.ui.components.HeaderText
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -73,8 +74,13 @@ fun UserListScreen(
                 CircularProgressIndicator()
             }
         } else {
+            HeaderText(
+                modifier = Modifier.padding(top = 8.dp),
+                stringResource(R.string.txt_welcome_to_user_list_screen)
+            )
             LazyColumn(
                 modifier = Modifier
+                    .padding(top = 8.dp)
                     .fillMaxSize()
                     .weight(1f),
                 contentPadding = PaddingValues(8.dp),
@@ -91,12 +97,14 @@ fun UserListScreen(
                     }
                 }
             }
-            Button(onClick = {
-                viewModel.addOneUserToDb()
-                coroutineScope.launch {
-                    listState.animateScrollToItem(index = users.size - 1)
-                }
-            }) {
+            Button(
+                modifier = Modifier.padding(vertical = 8.dp),
+                onClick = {
+                    viewModel.addOneUserToDb()
+                    coroutineScope.launch {
+                        listState.animateScrollToItem(index = users.size - 1)
+                    }
+                }) {
                 Text(text = stringResource(R.string.txt_add_user))
             }
         }
