@@ -10,7 +10,7 @@ A simple Jetpack Compose application that displays a list of randomly generated 
 
 https://github.com/chichi289/MAD_S04_ASSIGNMENT/assets/20377949/2b43daec-5e5c-4377-bcc9-7437aa59e0ce
 
-## Assignment 3 - User CRUD App
+## Assignment 3 - UserList App (DataStore & Room Database)
 
 ## Screenshots
 
