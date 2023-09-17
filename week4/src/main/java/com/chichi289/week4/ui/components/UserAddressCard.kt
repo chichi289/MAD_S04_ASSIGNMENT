@@ -50,11 +50,13 @@ fun UserAddressCard(
                 )
 
                 KeyValueText(
+                    modifier = Modifier.padding(top = 8.dp),
                     key = stringResource(R.string.txt_city),
                     value = city
                 )
 
                 KeyValueText(
+                    modifier = Modifier.padding(top = 8.dp),
                     key = stringResource(R.string.txt_country),
                     value = country
                 )
@@ -69,11 +71,13 @@ fun UserAddressCard(
                 )
 
                 KeyValueText(
+                    modifier = Modifier.padding(top = 8.dp),
                     key = stringResource(R.string.txt_state),
                     value = state
                 )
 
                 KeyValueText(
+                    modifier = Modifier.padding(top = 8.dp),
                     key = stringResource(R.string.txt_zipcode),
                     value = zipCode
                 )

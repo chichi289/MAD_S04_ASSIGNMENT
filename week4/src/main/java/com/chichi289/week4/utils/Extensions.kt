@@ -5,3 +5,5 @@ import android.util.Log
 fun String?.log() {
     Log.e("CHIRAG", this.toString())
 }
+
+fun String?.nullSafe() = this ?: ""
