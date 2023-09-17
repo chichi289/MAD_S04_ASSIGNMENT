@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MAD_S04-Week4</string>
+    <string name="txt_user_directory">User Directory</string>
+    <string name="txt_userid">UserID</string>
+    <string name="txt_username">Username</string>
+    <string name="txt_fullname">Fullname</string>
+    <string name="txt_full_name">Full name</string>
+    <string name="txt_email">Email</string>
+    <string name="msg_you_have_clicked_on_s">You\'ve clicked on %s</string>
+    <string name="txt_add_users">Add Users</string>
+    <string name="txt_add_user">Add User</string>
+    <string name="txt_welcome_to_user_detail_screen">Welcome to User Detail Screen</string>
+    <string name="txt_welcome_to_user_list_screen">Welcome to User List Screen</string>
+    <string name="txt_delete_user">Delete User</string>
+    <string name="content_description_back">Back</string>
+</resources>
