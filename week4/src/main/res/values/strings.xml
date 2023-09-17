@@ -13,4 +13,5 @@
     <string name="txt_welcome_to_user_list_screen">Welcome to User List Screen</string>
     <string name="txt_delete_user">Delete User</string>
     <string name="content_description_back">Back</string>
+    <string name="description_user_profile_picture">User profile picture</string>
 </resources>
