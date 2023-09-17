@@ -143,7 +143,7 @@ fun UserProfileScreen(
 
                     val address = user?.address
                     UserAddressCard(
-                        modifier = Modifier.padding(8.dp),
+                        modifier = Modifier.padding(10.dp),
                         streetName = address?.streetName.nullSafe(),
                         city = address?.city.nullSafe(),
                         country = address?.country.nullSafe(),
@@ -153,7 +153,7 @@ fun UserProfileScreen(
                     )
 
                     Text(
-                        modifier = Modifier.padding(top = 16.dp),
+                        modifier = Modifier.padding(top = 4.dp),
                         text = user?.subscription?.plan.nullSafe(),
                         style = TextStyle(
                             color = Color.Black,
