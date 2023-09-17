@@ -6,7 +6,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.chichi289.week4.data.remote.model.NetworkResult
 import com.chichi289.week4.data.remote.model.User
-import com.chichi289.week4.data.remote.model.UserDetail
+import com.chichi289.week4.data.remote.model.Post
 import com.chichi289.week4.domain.PicsumPhotosRepository
 import com.chichi289.week4.domain.RandomDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,8 +27,8 @@ class UserProfileViewModel @Inject constructor(
         MutableStateFlow(NetworkResult.Loading())
     val userStateFlow: StateFlow<NetworkResult<User>> = _mutableUserStateFlow
 
-    val usersPagingFlow: Flow<PagingData<UserDetail>> = picsumPhotosRepository
-        .getPhotos
+    val usersPagingFlow: Flow<PagingData<Post>> = picsumPhotosRepository
+        .posts
         .cachedIn(viewModelScope)
 
     init {

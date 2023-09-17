@@ -4,9 +4,9 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.chichi289.week4.data.remote.PicsumPhotosService
-import com.chichi289.week4.data.remote.model.UserDetail
+import com.chichi289.week4.data.remote.model.Post
 import com.chichi289.week4.domain.PicsumPhotosRepository
-import com.chichi289.week4.presentation.user_detail.UserDetailDataSource
+import com.chichi289.week4.presentation.user_detail.PostsDataSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -15,8 +15,8 @@ import javax.inject.Singleton
 class PicsumPhotosRepositoryImpl @Inject constructor(
     private val picsumPhotosService: PicsumPhotosService
 ) : PicsumPhotosRepository {
-    override val getPhotos: Flow<PagingData<UserDetail>> =
+    override val posts: Flow<PagingData<Post>> =
         Pager(config = PagingConfig(pageSize = 9)) {
-            UserDetailDataSource(picsumPhotosService = picsumPhotosService)
+            PostsDataSource(picsumPhotosService = picsumPhotosService)
         }.flow
 }

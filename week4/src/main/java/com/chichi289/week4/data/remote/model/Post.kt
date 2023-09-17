@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 
 @Keep
 @Parcelize
-data class UserDetail(
+data class Post(
     @SerializedName("author")
     val author: String,
     @SerializedName("download_url")

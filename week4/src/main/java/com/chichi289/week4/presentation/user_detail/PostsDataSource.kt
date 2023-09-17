@@ -3,22 +3,22 @@ package com.chichi289.week4.presentation.user_detail
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.chichi289.week4.data.remote.PicsumPhotosService
-import com.chichi289.week4.data.remote.model.UserDetail
+import com.chichi289.week4.data.remote.model.Post
 import com.chichi289.week4.utils.log
 
 
 const val FIRST_PAGE = 1
 
-class UserDetailDataSource(
+class PostsDataSource(
     private val picsumPhotosService: PicsumPhotosService
-) : PagingSource<Int, UserDetail>() {
-    override fun getRefreshKey(state: PagingState<Int, UserDetail>): Int? = null
+) : PagingSource<Int, Post>() {
+    override fun getRefreshKey(state: PagingState<Int, Post>): Int? = null
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UserDetail> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Post> {
         return try {
             val page = params.key ?: FIRST_PAGE
 
-            val items: List<UserDetail> = picsumPhotosService.getUserDetails(
+            val items: List<Post> = picsumPhotosService.getPosts(
                 page = page,
                 limit = params.loadSize
             )

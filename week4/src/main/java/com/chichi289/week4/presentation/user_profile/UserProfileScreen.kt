@@ -41,7 +41,7 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.chichi289.week4.data.remote.model.NetworkResult
 import com.chichi289.week4.data.remote.model.User
-import com.chichi289.week4.data.remote.model.UserDetail
+import com.chichi289.week4.data.remote.model.Post
 import com.chichi289.week4.ui.components.CustomTopAppBar
 import com.chichi289.week4.ui.components.ErrorItem
 import com.chichi289.week4.ui.components.LoadingIndicator
@@ -55,7 +55,7 @@ import com.chichi289.week4.utils.nullSafe
 @Composable
 fun UserProfileScreen(
     viewModel: UserProfileViewModel = hiltViewModel(),
-    onClickUser: (UserDetail) -> Unit
+    onClickUser: (Post) -> Unit
 ) {
 
     val userDataState: State<NetworkResult<User>> = remember {
@@ -209,8 +209,8 @@ fun UserProfileScreen(
 @Composable
 fun UserList(
     modifier: Modifier = Modifier,
-    userDetailsPagingItems: LazyPagingItems<UserDetail>,
-    onClickUser: (UserDetail) -> Unit
+    userDetailsPagingItems: LazyPagingItems<Post>,
+    onClickUser: (Post) -> Unit
 ) {
     LazyVerticalGrid(
         modifier = modifier,
@@ -325,7 +325,7 @@ fun UserList(
 }
 
 @Composable
-fun UserItem(userDetail: UserDetail, onClickUser: (UserDetail) -> Unit) {
+fun UserItem(userDetail: Post, onClickUser: (Post) -> Unit) {
     NetworkImage(
         modifier = Modifier
             .size(100.dp)

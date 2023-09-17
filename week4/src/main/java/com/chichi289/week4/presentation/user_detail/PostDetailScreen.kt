@@ -16,14 +16,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.chichi289.week4.R
-import com.chichi289.week4.data.remote.model.UserDetail
+import com.chichi289.week4.data.remote.model.Post
 import com.chichi289.week4.ui.components.CustomTopAppBar
 import com.chichi289.week4.ui.components.KeyValueText
 import com.chichi289.week4.ui.components.NetworkImage
 
 @Composable
-fun UserDetailScreen(
-    userDetail: UserDetail,
+fun PostDetailScreen(
+    post: Post,
     onBack: () -> Unit
 ) {
     Scaffold(
@@ -54,34 +54,34 @@ fun UserDetailScreen(
             NetworkImage(
                 modifier = Modifier
                     .clip(RoundedCornerShape(12.dp)),
-                url = userDetail.downloadUrl
+                url = post.downloadUrl
             )
 
             KeyValueText(
                 modifier = Modifier.padding(top = 12.dp),
                 key = stringResource(R.string.txt_author),
-                value = userDetail.author,
+                value = post.author,
                 shouldValueBold = true
             )
 
             KeyValueText(
                 modifier = Modifier.padding(top = 4.dp),
                 key = stringResource(R.string.txt_width),
-                value = userDetail.width.toString(),
+                value = post.width.toString(),
                 shouldValueBold = true
             )
 
             KeyValueText(
                 modifier = Modifier.padding(top = 4.dp),
                 key = stringResource(R.string.txt_height),
-                value = userDetail.height.toString(),
+                value = post.height.toString(),
                 shouldValueBold = true
             )
 
             KeyValueText(
                 modifier = Modifier.padding(top = 4.dp),
                 key = stringResource(R.string.txt_url),
-                value = userDetail.downloadUrl,
+                value = post.downloadUrl,
                 shouldValueBold = true
             )
 

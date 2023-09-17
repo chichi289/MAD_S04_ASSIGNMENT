@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.chichi289.week4.data.remote.model.UserDetail
-import com.chichi289.week4.presentation.user_detail.UserDetailScreen
+import com.chichi289.week4.data.remote.model.Post
+import com.chichi289.week4.presentation.user_detail.PostDetailScreen
 import com.chichi289.week4.presentation.user_profile.UserProfileScreen
 import com.chichi289.week4.utils.KEY_USER
 
@@ -26,9 +26,9 @@ fun MainGraph(
         }
         composable(Screen.UserDetailScreen.route) {
             navController.previousBackStackEntry?.savedStateHandle?.apply {
-                val userDetail = get<UserDetail>(KEY_USER) ?: return@composable
-                UserDetailScreen(
-                    userDetail = userDetail,
+                val userDetail = get<Post>(KEY_USER) ?: return@composable
+                PostDetailScreen(
+                    post = userDetail,
                     onBack = {
                         navController.popBackStack()
                     }
