@@ -50,7 +50,10 @@ fun UserProfileScreen(
     when (userDataState.value) {
         is NetworkResult.Loading -> {
             "Loading".log()
-            Box(modifier = Modifier.fillMaxSize()) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
                 CircularProgressIndicator()
             }
         }
