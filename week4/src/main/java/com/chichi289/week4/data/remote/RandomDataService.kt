@@ -8,7 +8,6 @@ import retrofit2.http.Query
  * API endpoint: https://random-data-api.com/api/v2/users?size=1
  */
 
-//
 interface RandomDataService {
 
     @GET("api/v2/users")

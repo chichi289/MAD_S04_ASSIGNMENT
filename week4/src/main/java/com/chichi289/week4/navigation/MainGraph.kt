@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.chichi289.week4.presentation.user_detail_screen.UserDetailScreen
-import com.chichi289.week4.presentation.user_list_screen.UserProfileScreen
+import com.chichi289.week4.presentation.user_detail.UserDetailScreen
+import com.chichi289.week4.presentation.user_profile.UserProfileScreen
 
 @Composable
 fun MainGraph(
