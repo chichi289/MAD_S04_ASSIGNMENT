@@ -16,16 +16,6 @@ fun CustomTopAppBar(
     modifier: Modifier = Modifier,
     navigationIcon: @Composable () -> Unit = {}
 ) {
-
-    /*{
-        IconButton(onClick = { }) {
-            Icon(
-                Icons.Default.ArrowBack,
-                contentDescription = "back arrow"
-            )
-        }
-    }*/
-
     TopAppBar(
         title = title,
         modifier = modifier,

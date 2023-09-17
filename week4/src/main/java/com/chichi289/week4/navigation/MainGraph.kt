@@ -27,7 +27,12 @@ fun MainGraph(
         composable(Screen.UserDetailScreen.route) {
             navController.previousBackStackEntry?.savedStateHandle?.apply {
                 val userDetail = get<UserDetail>(KEY_USER) ?: return@composable
-                UserDetailScreen(userDetail = userDetail)
+                UserDetailScreen(
+                    userDetail = userDetail,
+                    onBack = {
+                        navController.popBackStack()
+                    }
+                )
             }
         }
     }

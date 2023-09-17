@@ -20,4 +20,6 @@
     <string name="txt_street_address">Street address</string>
     <string name="txt_state">State</string>
     <string name="txt_zipcode">ZipCode</string>
+    <string name="description_back_arrow">back arrow</string>
+    <string name="txt_post_details">Post Details</string>
 </resources>
