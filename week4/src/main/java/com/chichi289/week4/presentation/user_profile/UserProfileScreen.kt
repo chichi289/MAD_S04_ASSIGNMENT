@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,9 +27,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.chichi289.week4.R
 import com.chichi289.week4.data.remote.model.NetworkResult
 import com.chichi289.week4.data.remote.model.User
@@ -168,10 +172,15 @@ fun UserProfileScreen(
         is NetworkResult.NoInternetError -> {
             "NoInternetError".log()
             userDataState.value.message.log()
-            Box(modifier = Modifier.fillMaxSize()) {
-                Text(
-                    text = userDataState.value.message.nullSafe(),
-                    fontSize = 18.sp
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                val composition by rememberLottieComposition(LottieCompositionSpec.Asset("no_internet.json"))
+                val progress by animateLottieCompositionAsState(composition)
+                LottieAnimation(
+                    composition = composition,
+                    progress = { progress },
                 )
             }
         }
