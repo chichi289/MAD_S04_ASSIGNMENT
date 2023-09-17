@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -48,6 +49,7 @@ import com.chichi289.week4.ui.components.CustomTopAppBar
 import com.chichi289.week4.ui.components.ErrorItem
 import com.chichi289.week4.ui.components.LoadingIndicator
 import com.chichi289.week4.ui.components.UserAddressCard
+import com.chichi289.week4.ui.theme.DarkBackground
 import com.chichi289.week4.ui.theme.LightBackground
 import com.chichi289.week4.utils.items
 import com.chichi289.week4.utils.log
@@ -165,9 +167,19 @@ fun UserProfileScreen(
                             fontSize = MaterialTheme.typography.titleSmall.fontSize,
                         )
                     )
+
+                    Divider(
+                        modifier = Modifier.padding(top = 4.dp),
+                        color = DarkBackground,
+                        thickness = 4.dp
+                    )
+
                     val userDetailsPagingItems =
                         remember { viewModel.usersPagingFlow }.collectAsLazyPagingItems()
-                    UserList(userDetailsPagingItems = userDetailsPagingItems)
+                    UserList(
+                        modifier = Modifier.padding(top = 4.dp),
+                        userDetailsPagingItems = userDetailsPagingItems
+                    )
                 }
             }
         }
@@ -194,7 +206,6 @@ fun UserProfileScreen(
         }
     }
 }
-
 
 @Composable
 fun UserList(
