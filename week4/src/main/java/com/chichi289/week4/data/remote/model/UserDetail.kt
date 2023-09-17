@@ -1,0 +1,21 @@
+package com.chichi289.week4.data.remote.model
+
+
+import com.google.gson.annotations.SerializedName
+import androidx.annotation.Keep
+
+@Keep
+data class UserDetail(
+    @SerializedName("author")
+    val author: String,
+    @SerializedName("download_url")
+    val downloadUrl: String,
+    @SerializedName("height")
+    val height: Int,
+    @SerializedName("id")
+    val id: String,
+    @SerializedName("url")
+    val url: String,
+    @SerializedName("width")
+    val width: Int
+)
