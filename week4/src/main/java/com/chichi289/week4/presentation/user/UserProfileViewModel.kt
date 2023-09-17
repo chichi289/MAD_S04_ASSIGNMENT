@@ -1,4 +1,4 @@
-package com.chichi289.week4.presentation.user_profile
+package com.chichi289.week4.presentation.user
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

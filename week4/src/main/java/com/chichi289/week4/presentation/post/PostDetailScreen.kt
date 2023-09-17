@@ -1,4 +1,4 @@
-package com.chichi289.week4.presentation.user_detail
+package com.chichi289.week4.presentation.post
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

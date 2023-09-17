@@ -5,8 +5,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.chichi289.week4.data.remote.model.Post
-import com.chichi289.week4.presentation.user_detail.PostDetailScreen
-import com.chichi289.week4.presentation.user_profile.UserProfileScreen
+import com.chichi289.week4.presentation.post.PostDetailScreen
+import com.chichi289.week4.presentation.user.UserProfileScreen
 import com.chichi289.week4.utils.KEY_USER
 
 @Composable

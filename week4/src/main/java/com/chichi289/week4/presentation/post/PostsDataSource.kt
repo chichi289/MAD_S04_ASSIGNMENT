@@ -1,4 +1,4 @@
-package com.chichi289.week4.presentation.user_detail
+package com.chichi289.week4.presentation.post
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
