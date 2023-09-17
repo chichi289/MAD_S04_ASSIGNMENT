@@ -11,9 +11,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,10 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.chichi289.week4.R
-import com.chichi289.week4.data.remote.model.NetworkResult
-import com.chichi289.week4.data.remote.model.User
 import com.chichi289.week4.ui.components.CustomTopAppBar
-import com.chichi289.week4.utils.log
+import com.chichi289.week4.ui.components.UserAddressCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,7 +32,7 @@ fun UserProfileScreen(
     viewModel: UserProfileViewModel = hiltViewModel()
 ) {
 
-    val userDataState: State<NetworkResult<User>> = remember {
+    /*val userDataState: State<NetworkResult<User>> = remember {
         viewModel.userStateFlow
     }.collectAsState()
 
@@ -62,7 +57,7 @@ fun UserProfileScreen(
             "NoInternetError".log()
             userDataState.value.message.log()
         }
-    }
+    }*/
 
     Scaffold(
         topBar = {
@@ -80,6 +75,7 @@ fun UserProfileScreen(
         Column(
             modifier = Modifier
                 .padding(it)
+                .padding(top = 8.dp)
         ) {
 
             Row(
@@ -125,6 +121,16 @@ fun UserProfileScreen(
                     )
                 }
             }
+
+            UserAddressCard(
+                modifier = Modifier.padding(8.dp),
+                streetName = "Strosin Shores",
+                city = "South Taylor",
+                country = "United States",
+                streetAddress = "652 Sang Road",
+                state = "Kansas",
+                zipCode = "71733"
+            )
         }
     }
 }

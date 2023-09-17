@@ -14,4 +14,10 @@
     <string name="txt_delete_user">Delete User</string>
     <string name="content_description_back">Back</string>
     <string name="description_user_profile_picture">User profile picture</string>
+    <string name="txt_street_name">Street name</string>
+    <string name="txt_city">City</string>
+    <string name="txt_country">Country</string>
+    <string name="txt_street_address">Street address</string>
+    <string name="txt_state">State</string>
+    <string name="txt_zipcode">ZipCode</string>
 </resources>
