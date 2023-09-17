@@ -15,8 +15,8 @@ import javax.inject.Singleton
 class PicsumPhotosRepositoryImpl @Inject constructor(
     private val picsumPhotosService: PicsumPhotosService
 ) : PicsumPhotosRepository {
-    override fun getPhotos(limit: Int): Flow<PagingData<UserDetail>> =
-        Pager(config = PagingConfig(pageSize = 10)) {
+    override val getPhotos: Flow<PagingData<UserDetail>> =
+        Pager(config = PagingConfig(pageSize = 9)) {
             UserDetailDataSource(picsumPhotosService = picsumPhotosService)
         }.flow
 }

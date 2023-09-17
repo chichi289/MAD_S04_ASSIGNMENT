@@ -28,7 +28,7 @@ class UserProfileViewModel @Inject constructor(
     val userStateFlow: StateFlow<NetworkResult<User>> = _mutableUserStateFlow
 
     val usersPagingFlow: Flow<PagingData<UserDetail>> = picsumPhotosRepository
-        .getPhotos(limit = 9)
+        .getPhotos
         .cachedIn(viewModelScope)
 
     init {

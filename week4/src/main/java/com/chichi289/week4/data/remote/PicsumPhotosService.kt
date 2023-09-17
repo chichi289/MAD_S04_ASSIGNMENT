@@ -1,7 +1,6 @@
 package com.chichi289.week4.data.remote
 
 import com.chichi289.week4.data.remote.model.UserDetail
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -12,5 +11,8 @@ import retrofit2.http.Query
 interface PicsumPhotosService {
 
     @GET("list")
-    fun getUserDetails(@Query("page") page: Int, @Query("limit") limit: Int): Response<List<UserDetail>>
+    suspend fun getUserDetails(
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
+    ): List<UserDetail>
 }

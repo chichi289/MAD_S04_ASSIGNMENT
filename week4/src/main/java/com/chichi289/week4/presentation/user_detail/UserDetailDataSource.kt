@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.chichi289.week4.data.remote.PicsumPhotosService
 import com.chichi289.week4.data.remote.model.UserDetail
+import com.chichi289.week4.utils.log
 
 
 const val FIRST_PAGE = 1
@@ -17,24 +18,24 @@ class UserDetailDataSource(
         return try {
             val page = params.key ?: FIRST_PAGE
 
-            val response = picsumPhotosService.getUserDetails(
+            val items: List<UserDetail> = picsumPhotosService.getUserDetails(
                 page = page,
                 limit = params.loadSize
             )
 
-            if (response.isSuccessful && response.body() != null) {
-                val items = response.body()!!
+            if (items.isNotEmpty()) {
                 LoadResult.Page(
                     data = items,
                     prevKey = if (page == FIRST_PAGE) null else page - 1,
                     nextKey = if (items.isEmpty()) null else page + 1
                 )
             } else {
-                LoadResult.Error(Exception(response.errorBody().toString()))
+                LoadResult.Error(Exception("Response is empty"))
             }
 
 
         } catch (e: Exception) {
+            e.message.log()
             LoadResult.Error(e)
         }
     }

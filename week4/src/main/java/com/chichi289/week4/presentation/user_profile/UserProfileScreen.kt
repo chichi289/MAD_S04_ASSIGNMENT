@@ -1,15 +1,20 @@
 package com.chichi289.week4.presentation.user_profile
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -22,11 +27,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -35,8 +44,12 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.chichi289.week4.R
 import com.chichi289.week4.data.remote.model.NetworkResult
 import com.chichi289.week4.data.remote.model.User
+import com.chichi289.week4.data.remote.model.UserDetail
 import com.chichi289.week4.ui.components.CustomTopAppBar
+import com.chichi289.week4.ui.components.ErrorItem
+import com.chichi289.week4.ui.components.LoadingIndicator
 import com.chichi289.week4.ui.components.UserAddressCard
+import com.chichi289.week4.utils.items
 import com.chichi289.week4.utils.log
 import com.chichi289.week4.utils.nullSafe
 
@@ -56,7 +69,7 @@ fun UserProfileScreen(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                CircularProgressIndicator()
+                LoadingIndicator()
             }
         }
 
@@ -158,6 +171,8 @@ fun UserProfileScreen(
                             fontSize = MaterialTheme.typography.titleSmall.fontSize,
                         )
                     )
+                    val userDetailsPagingItems = remember { viewModel.usersPagingFlow }.collectAsLazyPagingItems()
+                    UserList(userDetailsPagingItems = userDetailsPagingItems)
                 }
             }
         }
@@ -184,4 +199,134 @@ fun UserProfileScreen(
         }
     }
 }
+
+
+@Composable
+fun UserList(
+    modifier: Modifier = Modifier,
+    userDetailsPagingItems: LazyPagingItems<UserDetail>
+) {
+    
+    LazyVerticalGrid(
+        modifier = modifier,
+        contentPadding = PaddingValues(8.dp),
+        columns = GridCells.Fixed(3),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
+    ){
+        items(userDetailsPagingItems){repository ->
+            UserItem(profilePictureUrl = repository.downloadUrl)
+        }
+        userDetailsPagingItems.apply {
+
+            when (loadState.refresh) {
+                is LoadState.Loading -> {
+                    item {
+                        LoadingIndicator(modifier = Modifier.fillMaxSize())
+                    }
+                }
+
+                is LoadState.Error -> {
+                    item {
+                        ErrorItem(
+                            modifier = Modifier.fillMaxSize(),
+                            onRetryClick = { refresh() })
+                    }
+                }
+
+                else -> {
+
+                }
+            }
+
+            when (loadState.append) {
+                is LoadState.Loading -> {
+                    item {
+                        LoadingIndicator(modifier = Modifier.fillMaxSize())
+                    }
+                }
+
+                is LoadState.Error -> {
+                    item {
+                        ErrorItem(
+                            modifier = Modifier.fillMaxSize(),
+                            onRetryClick = { retry() })
+                    }
+                }
+
+                else -> {
+
+                }
+            }
+
+        }
+    }
+
+    /*LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(8.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        items(userDetailsPagingItems) { repository ->
+            UserItem(profilePictureUrl = repository.url)
+        }
+        userDetailsPagingItems.apply {
+
+            when (loadState.refresh) {
+                is LoadState.Loading -> {
+                    item {
+                        LoadingIndicator(modifier = Modifier.fillParentMaxSize())
+                    }
+                }
+
+                is LoadState.Error -> {
+                    item {
+                        ErrorItem(
+                            modifier = Modifier.fillParentMaxSize(),
+                            onRetryClick = { refresh() })
+                    }
+                }
+
+                else -> {
+
+                }
+            }
+
+            when (loadState.append) {
+                is LoadState.Loading -> {
+                    item {
+                        LoadingIndicator(modifier = Modifier.fillParentMaxWidth())
+                    }
+                }
+
+                is LoadState.Error -> {
+                    item {
+                        ErrorItem(
+                            modifier = Modifier.fillParentMaxWidth(),
+                            onRetryClick = { retry() })
+                    }
+                }
+
+                else -> {
+
+                }
+            }
+
+        }
+    }*/
+}
+
+@Composable
+fun UserItem(profilePictureUrl: String) {
+    AsyncImage(
+        modifier = Modifier
+            .size(100.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(Color.Cyan),
+        model = profilePictureUrl,
+        contentScale = ContentScale.Crop,
+        contentDescription = stringResource(R.string.description_user_profile_picture),
+    )
+}
+
 
