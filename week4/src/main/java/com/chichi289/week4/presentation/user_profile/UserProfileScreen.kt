@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
@@ -49,6 +48,7 @@ import com.chichi289.week4.ui.components.CustomTopAppBar
 import com.chichi289.week4.ui.components.ErrorItem
 import com.chichi289.week4.ui.components.LoadingIndicator
 import com.chichi289.week4.ui.components.UserAddressCard
+import com.chichi289.week4.ui.theme.LightBackground
 import com.chichi289.week4.utils.items
 import com.chichi289.week4.utils.log
 import com.chichi289.week4.utils.nullSafe
@@ -65,12 +65,7 @@ fun UserProfileScreen(
     when (userDataState.value) {
         is NetworkResult.Loading -> {
             "Loading".log()
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                LoadingIndicator()
-            }
+            LoadingIndicator(modifier = Modifier.fillMaxSize())
         }
 
         is NetworkResult.Success -> {
@@ -102,15 +97,14 @@ fun UserProfileScreen(
                             .align(Alignment.Start),
                         verticalAlignment = Alignment.Top,
                     ) {
-                        AsyncImage(
+
+                        NetworkImage(
                             modifier = Modifier
                                 .size(120.dp)
-                                .clip(CircleShape)
-                                .background(Color.Cyan),
-                            model = user?.avatar.nullSafe(),
-                            /*model = "https://robohash.org/praesentiumsitimpedit.png?size=300x300&set=set1",*/
-                            contentDescription = stringResource(R.string.description_user_profile_picture),
-                        )
+                                .clip(CircleShape),
+                            url = user?.avatar.nullSafe(),
+
+                            )
 
                         Column(
                             modifier = Modifier.padding(start = 16.dp)
@@ -171,7 +165,8 @@ fun UserProfileScreen(
                             fontSize = MaterialTheme.typography.titleSmall.fontSize,
                         )
                     )
-                    val userDetailsPagingItems = remember { viewModel.usersPagingFlow }.collectAsLazyPagingItems()
+                    val userDetailsPagingItems =
+                        remember { viewModel.usersPagingFlow }.collectAsLazyPagingItems()
                     UserList(userDetailsPagingItems = userDetailsPagingItems)
                 }
             }
@@ -206,15 +201,15 @@ fun UserList(
     modifier: Modifier = Modifier,
     userDetailsPagingItems: LazyPagingItems<UserDetail>
 ) {
-    
+
     LazyVerticalGrid(
         modifier = modifier,
         contentPadding = PaddingValues(8.dp),
         columns = GridCells.Fixed(3),
         verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp)
-    ){
-        items(userDetailsPagingItems){repository ->
+    ) {
+        items(userDetailsPagingItems) { repository ->
             UserItem(profilePictureUrl = repository.downloadUrl)
         }
         userDetailsPagingItems.apply {
@@ -318,13 +313,25 @@ fun UserList(
 
 @Composable
 fun UserItem(profilePictureUrl: String) {
-    AsyncImage(
+    NetworkImage(
         modifier = Modifier
             .size(100.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .background(Color.Cyan),
-        model = profilePictureUrl,
+            .clip(RoundedCornerShape(12.dp)),
+        url = profilePictureUrl,
         contentScale = ContentScale.Crop,
+    )
+}
+
+@Composable
+fun NetworkImage(
+    modifier: Modifier,
+    url: String,
+    contentScale: ContentScale = ContentScale.Fit,
+) {
+    AsyncImage(
+        modifier = modifier.background(LightBackground),
+        model = url,
+        contentScale = contentScale,
         contentDescription = stringResource(R.string.description_user_profile_picture),
     )
 }

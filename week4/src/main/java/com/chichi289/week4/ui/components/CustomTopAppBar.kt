@@ -6,6 +6,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.chichi289.week4.ui.theme.DarkBackground
+import com.chichi289.week4.ui.theme.Purple40
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,8 +30,8 @@ fun CustomTopAppBar(
         title = title,
         modifier = modifier,
         navigationIcon = navigationIcon,
-        colors = TopAppBarDefaults.smallTopAppBarColors(
-            containerColor = Color.LightGray
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = DarkBackground
         ),
     )
 }

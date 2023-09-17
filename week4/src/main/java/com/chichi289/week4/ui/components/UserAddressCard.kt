@@ -12,10 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.chichi289.week4.R
+import com.chichi289.week4.ui.theme.DarkBackground
+import com.chichi289.week4.ui.theme.Purple40
 
 @Composable
 fun UserAddressCard(
@@ -32,7 +33,7 @@ fun UserAddressCard(
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp)),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.LightGray)
+        colors = CardDefaults.cardColors(containerColor = DarkBackground)
     ) {
 
         Row(
