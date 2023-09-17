@@ -1,6 +1,7 @@
 package com.chichi289.week4.presentation.user_profile
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -57,7 +58,8 @@ import com.chichi289.week4.utils.nullSafe
 
 @Composable
 fun UserProfileScreen(
-    viewModel: UserProfileViewModel = hiltViewModel()
+    viewModel: UserProfileViewModel = hiltViewModel(),
+    onClickUser: (UserDetail) -> Unit
 ) {
 
     val userDataState: State<NetworkResult<User>> = remember {
@@ -178,7 +180,8 @@ fun UserProfileScreen(
                         remember { viewModel.usersPagingFlow }.collectAsLazyPagingItems()
                     UserList(
                         modifier = Modifier.padding(top = 4.dp),
-                        userDetailsPagingItems = userDetailsPagingItems
+                        userDetailsPagingItems = userDetailsPagingItems,
+                        onClickUser = onClickUser
                     )
                 }
             }
@@ -210,9 +213,9 @@ fun UserProfileScreen(
 @Composable
 fun UserList(
     modifier: Modifier = Modifier,
-    userDetailsPagingItems: LazyPagingItems<UserDetail>
+    userDetailsPagingItems: LazyPagingItems<UserDetail>,
+    onClickUser: (UserDetail) -> Unit
 ) {
-
     LazyVerticalGrid(
         modifier = modifier,
         contentPadding = PaddingValues(8.dp),
@@ -220,8 +223,11 @@ fun UserList(
         verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        items(userDetailsPagingItems) { repository ->
-            UserItem(profilePictureUrl = repository.downloadUrl)
+        items(userDetailsPagingItems) { userDetail ->
+            UserItem(
+                userDetail = userDetail,
+                onClickUser = onClickUser
+            )
         }
         userDetailsPagingItems.apply {
 
@@ -323,12 +329,13 @@ fun UserList(
 }
 
 @Composable
-fun UserItem(profilePictureUrl: String) {
+fun UserItem(userDetail: UserDetail, onClickUser: (UserDetail) -> Unit) {
     NetworkImage(
         modifier = Modifier
             .size(100.dp)
-            .clip(RoundedCornerShape(12.dp)),
-        url = profilePictureUrl,
+            .clip(RoundedCornerShape(12.dp))
+            .clickable { onClickUser.invoke(userDetail) },
+        url = userDetail.downloadUrl,
         contentScale = ContentScale.Crop,
     )
 }

@@ -1,10 +1,13 @@
 package com.chichi289.week4.data.remote.model
 
 
-import com.google.gson.annotations.SerializedName
+import android.os.Parcelable
 import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 @Keep
+@Parcelize
 data class UserDetail(
     @SerializedName("author")
     val author: String,
@@ -18,4 +21,4 @@ data class UserDetail(
     val url: String,
     @SerializedName("width")
     val width: Int
-)
+) : Parcelable
