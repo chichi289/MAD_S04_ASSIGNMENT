@@ -17,17 +17,33 @@ import androidx.compose.ui.unit.sp
 fun KeyValueText(
     modifier: Modifier = Modifier,
     key: String,
-    value: String
+    value: String,
+    shouldValueBold: Boolean = true,
+    clickable: Boolean = false
 ) {
 
     val finalString = buildAnnotatedString {
-        append(key)
+        if (shouldValueBold) {
+            append(key)
+        } else {
+            withStyle(
+                style = SpanStyle(
+                    color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 12.sp
+                ),
+            ) {
+                append(key)
+            }
+        }
         append(": ")
-        withStyle(
-            style = SpanStyle(
-                color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 12.sp
-            )
-        ) {
+        if (shouldValueBold) {
+            withStyle(
+                style = SpanStyle(
+                    color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 12.sp
+                ),
+            ) {
+                append(value)
+            }
+        } else {
             append(value)
         }
     }

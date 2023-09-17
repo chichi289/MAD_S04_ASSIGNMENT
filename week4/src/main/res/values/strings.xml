@@ -22,4 +22,8 @@
     <string name="txt_zipcode">ZipCode</string>
     <string name="description_back_arrow">back arrow</string>
     <string name="txt_post_details">Post Details</string>
+    <string name="txt_author">Author</string>
+    <string name="txt_width">Width</string>
+    <string name="txt_height">Height</string>
+    <string name="txt_url">URL</string>
 </resources>

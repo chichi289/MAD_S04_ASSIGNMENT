@@ -1,6 +1,5 @@
 package com.chichi289.week4.presentation.user_profile
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -37,21 +35,19 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import coil.compose.AsyncImage
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.chichi289.week4.R
 import com.chichi289.week4.data.remote.model.NetworkResult
 import com.chichi289.week4.data.remote.model.User
 import com.chichi289.week4.data.remote.model.UserDetail
 import com.chichi289.week4.ui.components.CustomTopAppBar
 import com.chichi289.week4.ui.components.ErrorItem
 import com.chichi289.week4.ui.components.LoadingIndicator
+import com.chichi289.week4.ui.components.NetworkImage
 import com.chichi289.week4.ui.components.UserAddressCard
 import com.chichi289.week4.ui.theme.DarkBackground
-import com.chichi289.week4.ui.theme.LightBackground
 import com.chichi289.week4.utils.items
 import com.chichi289.week4.utils.log
 import com.chichi289.week4.utils.nullSafe
@@ -337,20 +333,6 @@ fun UserItem(userDetail: UserDetail, onClickUser: (UserDetail) -> Unit) {
             .clickable { onClickUser.invoke(userDetail) },
         url = userDetail.downloadUrl,
         contentScale = ContentScale.Crop,
-    )
-}
-
-@Composable
-fun NetworkImage(
-    modifier: Modifier,
-    url: String,
-    contentScale: ContentScale = ContentScale.Fit,
-) {
-    AsyncImage(
-        modifier = modifier.background(LightBackground),
-        model = url,
-        contentScale = contentScale,
-        contentDescription = stringResource(R.string.description_user_profile_picture),
     )
 }
 
