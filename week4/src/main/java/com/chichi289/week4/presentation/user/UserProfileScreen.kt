@@ -168,7 +168,7 @@ fun UserProfileScreen(
 
                     Divider(
                         modifier = Modifier.padding(top = 4.dp),
-                        color = DarkBackground,
+                        color = Color.Black,
                         thickness = 4.dp
                     )
 
