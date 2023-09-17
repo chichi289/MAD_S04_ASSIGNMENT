@@ -2,6 +2,7 @@ package com.chichi289.week4.data
 
 import com.chichi289.week4.data.remote.RandomDataService
 import com.chichi289.week4.data.remote.model.NetworkResult
+import com.chichi289.week4.data.remote.model.User
 import com.chichi289.week4.domain.RandomDataRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +17,7 @@ import javax.inject.Singleton
 class RandomDataRepositoryImpl @Inject constructor(
     private val randomDataService: RandomDataService
 ) : RandomDataRepository {
-    override suspend fun getUserData(size: Int): Flow<NetworkResult<Unit>> {
+    override suspend fun getUserData(size: Int): Flow<NetworkResult<User>> {
         return flow {
             emit(NetworkResult.Loading())
             val response = randomDataService.getUserData(size = size)
