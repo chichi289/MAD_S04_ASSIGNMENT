@@ -316,10 +316,17 @@ fun UserList(
                 }
 
                 is LoadState.Error -> {
-                    item {
+                    val error = loadState.refresh as LoadState.Error
+                    item(
+                        // Make loading indicator horizontally center in LazyVerticalGrid
+                        span = {
+                            GridItemSpan(maxLineSpan)
+                        }
+                    ) {
                         ErrorItem(
                             modifier = Modifier.fillMaxSize(),
-                            onRetryClick = { refresh() })
+                            text = error.error.message.nullSafe(),
+                            onRetryClick = { retry() })
                     }
                 }
 
@@ -341,9 +348,16 @@ fun UserList(
                 }
 
                 is LoadState.Error -> {
-                    item {
+                    val error = loadState.append as LoadState.Error
+                    item(
+                        // Make loading indicator horizontally center in LazyVerticalGrid
+                        span = {
+                            GridItemSpan(maxLineSpan)
+                        }
+                    ) {
                         ErrorItem(
                             modifier = Modifier.fillMaxSize(),
+                            text = error.error.message.nullSafe(),
                             onRetryClick = { retry() })
                     }
                 }

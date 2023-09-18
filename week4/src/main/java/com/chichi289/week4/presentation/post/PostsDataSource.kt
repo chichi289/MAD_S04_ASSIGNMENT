@@ -4,7 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.chichi289.week4.data.remote.PicsumPhotosService
 import com.chichi289.week4.data.remote.model.Post
-import com.chichi289.week4.utils.log
+import java.net.UnknownHostException
 
 
 const val FIRST_PAGE = 1
@@ -32,11 +32,12 @@ class PostsDataSource(
             } else {
                 LoadResult.Error(Exception("Response is empty"))
             }
-
-
         } catch (e: Exception) {
-            e.message.log()
-            LoadResult.Error(e)
+            if (e is UnknownHostException) {
+                LoadResult.Error(Exception("No internet connection"))
+            } else {
+                LoadResult.Error(e)
+            }
         }
     }
 }

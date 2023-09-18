@@ -10,11 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import com.chichi289.week4.R
 
 @Composable
 fun ErrorItem(
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.error,
+    text: String,
     onRetryClick: () -> Unit
 ) {
     Box(modifier = modifier) {
@@ -23,12 +27,14 @@ fun ErrorItem(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "Something went wrong...",
-                color = color,
+            CustomText(
+                text = text,
+                textStyle = TextStyle(
+                    color = color
+                )
             )
             Button(onClick = { onRetryClick() }) {
-                Text(text = "Retry")
+                Text(text = stringResource(R.string.txt_retry))
             }
         }
     }
