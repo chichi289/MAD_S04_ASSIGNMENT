@@ -14,6 +14,8 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -39,14 +41,15 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.chichi289.week4.data.remote.model.Address
 import com.chichi289.week4.data.remote.model.NetworkResult
-import com.chichi289.week4.data.remote.model.User
 import com.chichi289.week4.data.remote.model.Post
+import com.chichi289.week4.data.remote.model.User
+import com.chichi289.week4.ui.components.CustomText
 import com.chichi289.week4.ui.components.CustomTopAppBar
 import com.chichi289.week4.ui.components.ErrorItem
 import com.chichi289.week4.ui.components.LoadingIndicator
 import com.chichi289.week4.ui.components.NetworkImage
-import com.chichi289.week4.ui.components.UserAddressCard
 import com.chichi289.week4.ui.theme.DarkBackground
 import com.chichi289.week4.utils.items
 import com.chichi289.week4.utils.log
@@ -71,19 +74,17 @@ fun UserProfileScreen(
         is NetworkResult.Success -> {
             val user = userDataState.value.data
             "Success".log()
-            Scaffold(
-                topBar = {
-                    CustomTopAppBar(
-                        title = {
-                            Text(
-                                modifier = Modifier.fillMaxWidth(),
-                                text = user?.username.nullSafe(),
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                    )
-                }
-            ) {
+            Scaffold(topBar = {
+                CustomTopAppBar(
+                    title = {
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = user?.username.nullSafe(),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                )
+            }) {
                 Column(
                     modifier = Modifier
                         .padding(it)
@@ -91,76 +92,31 @@ fun UserProfileScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
-                    Row(
+                    UserProfile(
                         modifier = Modifier
                             .padding(horizontal = 8.dp)
                             .align(Alignment.Start),
-                        verticalAlignment = Alignment.Top,
-                    ) {
-
-                        NetworkImage(
-                            modifier = Modifier
-                                .size(120.dp)
-                                .clip(CircleShape),
-                            url = user?.avatar.nullSafe(),
-
-                            )
-
-                        Column(
-                            modifier = Modifier.padding(start = 16.dp)
-                        ) {
-                            Text(
-                                text = "${user?.firstName} ${user?.lastName}",
-                                style = TextStyle(
-                                    color = Color.Black,
-                                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                                )
-                            )
-
-                            Text(
-                                modifier = Modifier.padding(top = 4.dp),
-                                text = user?.employment?.title.nullSafe(),
-                                style = TextStyle(
-                                    color = Color.Black,
-                                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                                )
-                            )
-
-                            Text(
-                                modifier = Modifier.padding(top = 2.dp),
-                                text = user?.email.nullSafe(),
-                                style = TextStyle(
-                                    color = Color.Black,
-                                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                                )
-                            )
-                        }
-                    }
-
-                    val address = user?.address
-                    UserAddressCard(
-                        modifier = Modifier.padding(10.dp),
-                        streetName = address?.streetName.nullSafe(),
-                        city = address?.city.nullSafe(),
-                        country = address?.country.nullSafe(),
-                        streetAddress = address?.streetAddress.nullSafe(),
-                        state = address?.state.nullSafe(),
-                        zipCode = address?.zipCode.nullSafe()
+                        user = user
                     )
 
-                    Text(
+                    UserAddressCard(
+                        modifier = Modifier.padding(10.dp),
+                        address = user?.address
+                    )
+
+                    CustomText(
                         modifier = Modifier.padding(top = 4.dp),
                         text = user?.subscription?.plan.nullSafe(),
-                        style = TextStyle(
+                        textStyle = TextStyle(
                             color = Color.Black,
                             fontSize = MaterialTheme.typography.titleLarge.fontSize,
                         )
                     )
 
-                    Text(
+                    CustomText(
                         modifier = Modifier.padding(top = 4.dp),
                         text = user?.subscription?.status.nullSafe(),
-                        style = TextStyle(
+                        textStyle = TextStyle(
                             color = Color.Black,
                             fontSize = MaterialTheme.typography.titleSmall.fontSize,
                         )
@@ -200,6 +156,112 @@ fun UserProfileScreen(
                 LottieAnimation(
                     composition = composition,
                     progress = { progress },
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun UserProfile(
+    modifier: Modifier,
+    user: User?
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.Top,
+    ) {
+
+        NetworkImage(
+            modifier = Modifier
+                .size(120.dp)
+                .clip(CircleShape),
+            url = user?.avatar.nullSafe(),
+
+            )
+
+        Column(
+            modifier = Modifier.padding(start = 16.dp)
+        ) {
+            Text(
+                text = "${user?.firstName} ${user?.lastName}",
+                style = TextStyle(
+                    color = Color.Black,
+                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                )
+            )
+
+            Text(
+                modifier = Modifier.padding(top = 4.dp),
+                text = user?.employment?.title.nullSafe(),
+                style = TextStyle(
+                    color = Color.Black,
+                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                )
+            )
+
+            Text(
+                modifier = Modifier.padding(top = 2.dp),
+                text = user?.email.nullSafe(),
+                style = TextStyle(
+                    color = Color.Black,
+                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                )
+            )
+        }
+    }
+}
+
+@Composable
+fun UserAddressCard(
+    modifier: Modifier,
+    address: Address?
+) {
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        colors = CardDefaults.cardColors(containerColor = DarkBackground)
+    ) {
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column {
+
+                CustomText(text = address?.streetName.nullSafe())
+
+                CustomText(
+                    modifier = Modifier.padding(top = 8.dp),
+                    text = address?.city.nullSafe()
+                )
+
+                CustomText(
+                    modifier = Modifier.padding(top = 8.dp),
+                    text = address?.country.nullSafe()
+                )
+
+            }
+
+            Column {
+
+                CustomText(
+                    text = address?.streetAddress.nullSafe()
+                )
+
+                CustomText(
+                    modifier = Modifier.padding(top = 8.dp),
+                    text = address?.state.nullSafe()
+                )
+
+                CustomText(
+                    modifier = Modifier.padding(top = 8.dp),
+                    text = address?.zipCode.nullSafe()
                 )
             }
         }

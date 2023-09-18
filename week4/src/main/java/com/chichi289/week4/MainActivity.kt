@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
-                    shadowElevation = 3.dp,
+                    shadowElevation = 4.dp
                 ) {
                     MainGraph(navController = rememberNavController())
                 }

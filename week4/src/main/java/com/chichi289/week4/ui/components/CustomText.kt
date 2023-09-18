@@ -11,15 +11,16 @@ import androidx.compose.ui.text.style.TextOverflow
 @Composable
 fun CustomText(
     modifier: Modifier = Modifier,
-    text: String
+    text: String,
+    textStyle: TextStyle = TextStyle(
+        color = Color.Black,
+        fontSize = MaterialTheme.typography.bodyLarge.fontSize,
+    )
 ) {
     Text(
         modifier = modifier,
         text = text,
-        style = TextStyle(
-            color = Color.Black,
-            fontSize = MaterialTheme.typography.bodyLarge.fontSize,
-        ),
+        style = textStyle,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis
     )
