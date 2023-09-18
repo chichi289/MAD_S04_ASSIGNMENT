@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.chichi289.week4.R
 import com.chichi289.week4.data.remote.model.Post
 import com.chichi289.week4.ui.components.CustomTopAppBar
+import com.chichi289.week4.ui.components.HyperlinkText
 import com.chichi289.week4.ui.components.KeyValueText
 import com.chichi289.week4.ui.components.NetworkImage
 
@@ -60,29 +61,26 @@ fun PostDetailScreen(
             KeyValueText(
                 modifier = Modifier.padding(top = 12.dp),
                 key = stringResource(R.string.txt_author),
-                value = post.author,
-                shouldValueBold = true
+                value = post.author
             )
 
             KeyValueText(
                 modifier = Modifier.padding(top = 4.dp),
                 key = stringResource(R.string.txt_width),
-                value = post.width.toString(),
-                shouldValueBold = true
+                value = post.width.toString()
             )
 
             KeyValueText(
                 modifier = Modifier.padding(top = 4.dp),
                 key = stringResource(R.string.txt_height),
-                value = post.height.toString(),
-                shouldValueBold = true
+                value = post.height.toString()
             )
 
-            KeyValueText(
+            HyperlinkText(
                 modifier = Modifier.padding(top = 4.dp),
-                key = stringResource(R.string.txt_url),
-                value = post.downloadUrl,
-                shouldValueBold = true
+                fullText = "${stringResource(R.string.txt_url)} ${post.downloadUrl}",
+                linkText = listOf(post.downloadUrl),
+                hyperlinks = listOf(post.downloadUrl)
             )
 
         }

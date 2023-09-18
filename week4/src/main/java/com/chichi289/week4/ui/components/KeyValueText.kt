@@ -11,39 +11,23 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun KeyValueText(
     modifier: Modifier = Modifier,
     key: String,
-    value: String,
-    shouldValueBold: Boolean = true,
-    clickable: Boolean = false
+    value: String
 ) {
-
     val finalString = buildAnnotatedString {
-        if (shouldValueBold) {
-            append(key)
-        } else {
-            withStyle(
-                style = SpanStyle(
-                    color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 12.sp
-                ),
-            ) {
-                append(key)
-            }
-        }
+        append(key)
         append(": ")
-        if (shouldValueBold) {
-            withStyle(
-                style = SpanStyle(
-                    color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 12.sp
-                ),
-            ) {
-                append(value)
-            }
-        } else {
+        withStyle(
+            style = SpanStyle(
+                color = Color.Black,
+                fontWeight = FontWeight.Bold,
+                fontSize = MaterialTheme.typography.titleMedium.fontSize
+            ),
+        ) {
             append(value)
         }
     }
@@ -53,7 +37,7 @@ fun KeyValueText(
         text = finalString,
         style = TextStyle(
             color = Color.Black,
-            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+            fontSize = MaterialTheme.typography.titleMedium.fontSize,
         ),
         maxLines = 1,
         overflow = TextOverflow.Ellipsis
