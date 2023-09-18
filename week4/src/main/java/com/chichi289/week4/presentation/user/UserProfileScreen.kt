@@ -180,7 +180,8 @@ fun UserProfileScreen(
                     )
                 }
             )
-        }) {
+        }
+        ) {
         Column(
             modifier = Modifier
                 .padding(it)
@@ -319,7 +320,6 @@ fun UserAddressCard(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp)),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         colors = CardDefaults.cardColors(containerColor = DarkBackground)
     ) {
 
