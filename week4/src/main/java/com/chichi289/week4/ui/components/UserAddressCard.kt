@@ -12,11 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.chichi289.week4.R
 import com.chichi289.week4.ui.theme.DarkBackground
-import com.chichi289.week4.ui.theme.Purple40
 
 @Composable
 fun UserAddressCard(
@@ -45,42 +42,34 @@ fun UserAddressCard(
         ) {
             Column {
 
-                KeyValueText(
-                    key = stringResource(R.string.txt_street_name),
-                    value = streetName
+                CustomText(text = streetName)
+
+                CustomText(
+                    modifier = Modifier.padding(top = 8.dp),
+                    text = city
                 )
 
-                KeyValueText(
+                CustomText(
                     modifier = Modifier.padding(top = 8.dp),
-                    key = stringResource(R.string.txt_city),
-                    value = city
-                )
-
-                KeyValueText(
-                    modifier = Modifier.padding(top = 8.dp),
-                    key = stringResource(R.string.txt_country),
-                    value = country
+                    text = country
                 )
 
             }
 
             Column {
 
-                KeyValueText(
-                    key = stringResource(R.string.txt_street_address),
-                    value = streetAddress
+                CustomText(
+                    text = streetAddress
                 )
 
-                KeyValueText(
+                CustomText(
                     modifier = Modifier.padding(top = 8.dp),
-                    key = stringResource(R.string.txt_state),
-                    value = state
+                    text = state
                 )
 
-                KeyValueText(
+                CustomText(
                     modifier = Modifier.padding(top = 8.dp),
-                    key = stringResource(R.string.txt_zipcode),
-                    value = zipCode
+                    text = zipCode
                 )
             }
         }
