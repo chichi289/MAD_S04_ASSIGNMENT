@@ -24,12 +24,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -41,6 +44,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.chichi289.week4.R
 import com.chichi289.week4.data.remote.model.Address
 import com.chichi289.week4.data.remote.model.NetworkResult
 import com.chichi289.week4.data.remote.model.Post
@@ -52,7 +56,6 @@ import com.chichi289.week4.ui.components.LoadingIndicator
 import com.chichi289.week4.ui.components.NetworkImage
 import com.chichi289.week4.ui.theme.DarkBackground
 import com.chichi289.week4.utils.items
-import com.chichi289.week4.utils.log
 import com.chichi289.week4.utils.nullSafe
 
 @Composable
@@ -65,7 +68,14 @@ fun UserProfileScreen(
         viewModel.userStateFlow
     }.collectAsState()
 
-    when (userDataState.value) {
+    // Initial TopAppBar title is loading after api response username is set
+    val textLoading = stringResource(R.string.txt_loading)
+    var userName: String by remember {
+        mutableStateOf(textLoading)
+    }
+    val postLazyPagingItems = remember { viewModel.postsPagingFlow }
+
+    /*when (userDataState.value) {
         is NetworkResult.Loading -> {
             LoadingIndicator(modifier = Modifier.fillMaxSize())
         }
@@ -156,7 +166,98 @@ fun UserProfileScreen(
                 )
             }
         }
+    }*/
+
+
+    Scaffold(
+        topBar = {
+            CustomTopAppBar(
+                title = {
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = userName,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            )
+        }) {
+        Column(
+            modifier = Modifier
+                .padding(it)
+                .padding(top = 8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            if (userDataState.value is NetworkResult.Loading) {
+                LoadingIndicator(modifier = Modifier.fillMaxSize())
+            }
+
+            if (userDataState.value is NetworkResult.Success) {
+                val user = userDataState.value.data
+                userName = user?.username.nullSafe()
+                UserProfile(
+                    modifier = Modifier
+                        .padding(horizontal = 8.dp)
+                        .align(Alignment.Start),
+                    user = user
+                )
+
+                UserAddressCard(
+                    modifier = Modifier.padding(10.dp),
+                    address = user?.address
+                )
+
+                CustomText(
+                    modifier = Modifier.padding(top = 4.dp),
+                    text = user?.subscription?.plan.nullSafe(),
+                    textStyle = TextStyle(
+                        color = Color.Black,
+                        fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                    )
+                )
+
+                CustomText(
+                    modifier = Modifier.padding(top = 4.dp),
+                    text = user?.subscription?.status.nullSafe(),
+                    textStyle = TextStyle(
+                        color = Color.Black,
+                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                    )
+                )
+
+                Divider(
+                    modifier = Modifier.padding(top = 4.dp),
+                    color = Color.Black,
+                    thickness = 4.dp
+                )
+
+                val pagingItems = postLazyPagingItems.collectAsLazyPagingItems()
+
+                UserList(
+                    modifier = Modifier.padding(top = 4.dp),
+                    userDetailsPagingItems = pagingItems,
+                    onClickUser = onClickUser
+                )
+
+            }
+
+            if (userDataState.value is NetworkResult.NoInternetError) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    val composition by rememberLottieComposition(LottieCompositionSpec.Asset("no_internet.json"))
+                    val progress by animateLottieCompositionAsState(composition)
+                    LottieAnimation(
+                        modifier = Modifier.size(300.dp),
+                        composition = composition,
+                        progress = { progress },
+                    )
+                }
+            }
+
+        }
     }
+
 }
 
 @Composable
