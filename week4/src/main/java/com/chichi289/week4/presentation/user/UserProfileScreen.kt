@@ -30,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
@@ -54,6 +55,7 @@ import com.chichi289.week4.ui.components.CustomTopAppBar
 import com.chichi289.week4.ui.components.ErrorItem
 import com.chichi289.week4.ui.components.LoadingIndicator
 import com.chichi289.week4.ui.components.NetworkImage
+import com.chichi289.week4.ui.components.fadingEdge
 import com.chichi289.week4.ui.theme.DarkBackground
 import com.chichi289.week4.utils.items
 import com.chichi289.week4.utils.nullSafe
@@ -181,7 +183,7 @@ fun UserProfileScreen(
                 }
             )
         }
-        ) {
+    ) {
         Column(
             modifier = Modifier
                 .padding(it)
@@ -373,7 +375,12 @@ fun UserList(
     onClickUser: (Post) -> Unit
 ) {
     LazyVerticalGrid(
-        modifier = modifier,
+        modifier = modifier.fadingEdge(
+            Brush.verticalGradient(
+                0f to Color.Transparent,
+                0.3f to DarkBackground
+            )
+        ),
         contentPadding = PaddingValues(8.dp),
         columns = GridCells.Fixed(3),
         verticalArrangement = Arrangement.spacedBy(10.dp),
@@ -435,8 +442,8 @@ fun UserList(
         contentPadding = PaddingValues(8.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items(userDetailsPagingItems) { repository ->
-            UserItem(profilePictureUrl = repository.url)
+        items(userDetailsPagingItems) { userDetail ->
+            UserItem(userDetail = userDetail, onClickUser = onClickUser)
         }
         userDetailsPagingItems.apply {
 
