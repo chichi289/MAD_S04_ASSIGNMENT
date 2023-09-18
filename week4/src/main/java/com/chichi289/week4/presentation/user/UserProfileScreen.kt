@@ -71,106 +71,12 @@ fun UserProfileScreen(
         viewModel.userStateFlow
     }.collectAsState()
 
-    // Initial TopAppBar title is loading after api response username is set
+    // Initial TopAppBar title is loading after api response username or No internet is set
     val textLoading = stringResource(R.string.txt_loading)
-    var userName: String by remember {
+    var appBarTitle: String by remember {
         mutableStateOf(textLoading)
     }
     val postLazyPagingItems = remember { viewModel.postsPagingFlow }
-
-    /*when (userDataState.value) {
-        is NetworkResult.Loading -> {
-            LoadingIndicator(modifier = Modifier.fillMaxSize())
-        }
-
-        is NetworkResult.Success -> {
-            val user = userDataState.value.data
-            Scaffold(topBar = {
-                CustomTopAppBar(
-                    title = {
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = user?.username.nullSafe(),
-                            textAlign = TextAlign.Center
-                        )
-                    }
-                )
-            }) {
-                Column(
-                    modifier = Modifier
-                        .padding(it)
-                        .padding(top = 8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-
-                    UserProfile(
-                        modifier = Modifier
-                            .padding(horizontal = 8.dp)
-                            .align(Alignment.Start),
-                        user = user
-                    )
-
-                    UserAddressCard(
-                        modifier = Modifier.padding(10.dp),
-                        address = user?.address
-                    )
-
-                    CustomText(
-                        modifier = Modifier.padding(top = 4.dp),
-                        text = user?.subscription?.plan.nullSafe(),
-                        textStyle = TextStyle(
-                            color = Color.Black,
-                            fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                        )
-                    )
-
-                    CustomText(
-                        modifier = Modifier.padding(top = 4.dp),
-                        text = user?.subscription?.status.nullSafe(),
-                        textStyle = TextStyle(
-                            color = Color.Black,
-                            fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                        )
-                    )
-
-                    Divider(
-                        modifier = Modifier.padding(top = 4.dp),
-                        color = Color.Black,
-                        thickness = 4.dp
-                    )
-
-                    val userDetailsPagingItems =
-                        remember { viewModel.usersPagingFlow }.collectAsLazyPagingItems()
-                    UserList(
-                        modifier = Modifier.padding(top = 4.dp),
-                        userDetailsPagingItems = userDetailsPagingItems,
-                        onClickUser = onClickUser
-                    )
-                }
-            }
-        }
-
-        is NetworkResult.Error -> {
-            userDataState.value.message.log()
-        }
-
-        is NetworkResult.NoInternetError -> {
-            userDataState.value.message.log()
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                val composition by rememberLottieComposition(LottieCompositionSpec.Asset("no_internet.json"))
-                val progress by animateLottieCompositionAsState(composition)
-                LottieAnimation(
-                    modifier = Modifier.size(300.dp),
-                    composition = composition,
-                    progress = { progress },
-                )
-            }
-        }
-    }*/
-
 
     Scaffold(
         topBar = {
@@ -178,7 +84,7 @@ fun UserProfileScreen(
                 title = {
                     Text(
                         modifier = Modifier.fillMaxWidth(),
-                        text = userName,
+                        text = appBarTitle,
                         textAlign = TextAlign.Center
                     )
                 }
@@ -197,7 +103,7 @@ fun UserProfileScreen(
 
             if (userDataState.value is NetworkResult.Success) {
                 val user = userDataState.value.data
-                userName = user?.username.nullSafe()
+                appBarTitle = user?.username.nullSafe()
                 UserProfile(
                     modifier = Modifier
                         .padding(horizontal = 8.dp)
@@ -245,6 +151,8 @@ fun UserProfileScreen(
             }
 
             if (userDataState.value is NetworkResult.NoInternetError) {
+                appBarTitle =
+                    (userDataState.value as NetworkResult.NoInternetError).message.nullSafe()
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
