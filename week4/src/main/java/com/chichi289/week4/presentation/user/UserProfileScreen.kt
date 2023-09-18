@@ -67,13 +67,11 @@ fun UserProfileScreen(
 
     when (userDataState.value) {
         is NetworkResult.Loading -> {
-            "Loading".log()
             LoadingIndicator(modifier = Modifier.fillMaxSize())
         }
 
         is NetworkResult.Success -> {
             val user = userDataState.value.data
-            "Success".log()
             Scaffold(topBar = {
                 CustomTopAppBar(
                     title = {
@@ -140,12 +138,10 @@ fun UserProfileScreen(
         }
 
         is NetworkResult.Error -> {
-            "Error".log()
             userDataState.value.message.log()
         }
 
         is NetworkResult.NoInternetError -> {
-            "NoInternetError".log()
             userDataState.value.message.log()
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -154,6 +150,7 @@ fun UserProfileScreen(
                 val composition by rememberLottieComposition(LottieCompositionSpec.Asset("no_internet.json"))
                 val progress by animateLottieCompositionAsState(composition)
                 LottieAnimation(
+                    modifier = Modifier.size(300.dp),
                     composition = composition,
                     progress = { progress },
                 )
