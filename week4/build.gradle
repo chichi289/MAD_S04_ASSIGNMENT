@@ -24,9 +24,20 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            keyAlias 'mad_123'
+            keyPassword 'mad_123'
+            storeFile file('../projectdata/mad_s04.jks')
+            storePassword 'mad_123'
+        }
+    }
+
+
     buildTypes {
         release {
-            minifyEnabled false
+            signingConfig signingConfigs.release
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
