@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -396,7 +397,12 @@ fun UserList(
 
             when (loadState.refresh) {
                 is LoadState.Loading -> {
-                    item {
+                    item(
+                        // Make loading indicator horizontally center in LazyVerticalGrid
+                        span = {
+                            GridItemSpan(maxLineSpan)
+                        }
+                    ) {
                         LoadingIndicator(modifier = Modifier.fillMaxSize())
                     }
                 }
@@ -416,7 +422,12 @@ fun UserList(
 
             when (loadState.append) {
                 is LoadState.Loading -> {
-                    item {
+                    item(
+                        // Make loading indicator horizontally center in LazyVerticalGrid
+                        span = {
+                            GridItemSpan(maxLineSpan)
+                        }
+                    ) {
                         LoadingIndicator(modifier = Modifier.fillMaxSize())
                     }
                 }
