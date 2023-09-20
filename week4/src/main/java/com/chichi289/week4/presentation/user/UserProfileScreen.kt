@@ -1,5 +1,6 @@
 package com.chichi289.week4.presentation.user
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -79,99 +80,98 @@ fun UserProfileScreen(
     }
     val postLazyPagingItems = remember { viewModel.postsPagingFlow }
 
-    Scaffold(
-        topBar = {
-            CustomTopAppBar(
-                title = {
-                    Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = appBarTitle,
-                        textAlign = TextAlign.Center
-                    )
-                }
-            )
-        }
-    ) {
+    Scaffold(topBar = {
+        CustomTopAppBar(title = {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = appBarTitle,
+                    textAlign = TextAlign.Center
+                )
+            })
+    }) {
         Column(
             modifier = Modifier
                 .padding(it)
                 .padding(top = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (userDataState.value is NetworkResult.Loading) {
-                LoadingIndicator(modifier = Modifier.fillMaxSize())
-            }
-
-            if (userDataState.value is NetworkResult.Success) {
-                val user = userDataState.value.data
-
-                LaunchedEffect(userDataState) {
-                    appBarTitle = user?.username.nullSafe()
+            when (userDataState.value) {
+                is NetworkResult.Loading -> {
+                    LoadingIndicator(modifier = Modifier.fillMaxSize())
                 }
 
-                UserProfile(
-                    modifier = Modifier
-                        .padding(horizontal = 8.dp)
-                        .align(Alignment.Start),
-                    user = user
-                )
+                is NetworkResult.Success -> {
+                    val user = userDataState.value.data
 
-                UserAddressCard(
-                    modifier = Modifier.padding(10.dp),
-                    address = user?.address
-                )
+                    LaunchedEffect(userDataState) {
+                        appBarTitle = user?.username.nullSafe()
+                    }
 
-                CustomText(
-                    modifier = Modifier.padding(top = 4.dp),
-                    text = user?.subscription?.plan.nullSafe(),
-                    textStyle = TextStyle(
+                    UserProfile(
+                        modifier = Modifier
+                            .padding(horizontal = 8.dp)
+                            .align(Alignment.Start),
+                        user = user
+                    )
+
+                    UserAddressCard(
+                        modifier = Modifier.padding(10.dp),
+                        address = user?.address
+                    )
+
+                    CustomText(
+                        modifier = Modifier.padding(top = 4.dp),
+                        text = user?.subscription?.plan.nullSafe(),
+                        textStyle = TextStyle(
+                            color = Color.Black,
+                            fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                        )
+                    )
+
+                    CustomText(
+                        modifier = Modifier.padding(top = 4.dp),
+                        text = user?.subscription?.status.nullSafe(),
+                        textStyle = TextStyle(
+                            color = Color.Black,
+                            fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                        )
+                    )
+
+                    Divider(
+                        modifier = Modifier.padding(top = 4.dp),
                         color = Color.Black,
-                        fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                        thickness = 4.dp
                     )
-                )
 
-                CustomText(
-                    modifier = Modifier.padding(top = 4.dp),
-                    text = user?.subscription?.status.nullSafe(),
-                    textStyle = TextStyle(
-                        color = Color.Black,
-                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                    val pagingItems = postLazyPagingItems.collectAsLazyPagingItems()
+
+                    PostList(
+                        modifier = Modifier.padding(top = 4.dp),
+                        postsLazyPagingItems = pagingItems,
+                        onClickPost = onClickPost
                     )
-                )
 
-                Divider(
-                    modifier = Modifier.padding(top = 4.dp),
-                    color = Color.Black,
-                    thickness = 4.dp
-                )
-
-                val pagingItems = postLazyPagingItems.collectAsLazyPagingItems()
-
-                PostList(
-                    modifier = Modifier.padding(top = 4.dp),
-                    postsLazyPagingItems = pagingItems,
-                    onClickPost = onClickPost
-                )
-
-            }
-
-            if (userDataState.value is NetworkResult.NoInternetError) {
-                appBarTitle =
-                    (userDataState.value as NetworkResult.NoInternetError).message.nullSafe()
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    val composition by rememberLottieComposition(LottieCompositionSpec.Asset("no_internet.json"))
-                    val progress by animateLottieCompositionAsState(composition)
-                    LottieAnimation(
-                        modifier = Modifier.size(300.dp),
-                        composition = composition,
-                        progress = { progress },
-                    )
                 }
-            }
 
+                is NetworkResult.NoInternetError -> {
+                    appBarTitle =
+                        (userDataState.value as NetworkResult.NoInternetError).message.nullSafe()
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        val composition by rememberLottieComposition(LottieCompositionSpec.Asset("no_internet.json"))
+                        val progress by animateLottieCompositionAsState(composition)
+                        LottieAnimation(
+                            modifier = Modifier.size(300.dp),
+                            composition = composition,
+                            progress = { progress },
+                        )
+                    }
+                }
+
+                is NetworkResult.Error -> Log.e("Error", "Some went wrong")
+            }
         }
     }
 
