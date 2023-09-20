@@ -22,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -64,7 +65,7 @@ import com.chichi289.week4.utils.nullSafe
 @Composable
 fun UserProfileScreen(
     viewModel: UserProfileViewModel = hiltViewModel(),
-    onClickUser: (Post) -> Unit
+    onClickPost: (Post) -> Unit
 ) {
 
     val userDataState: State<NetworkResult<User>> = remember {
@@ -103,7 +104,11 @@ fun UserProfileScreen(
 
             if (userDataState.value is NetworkResult.Success) {
                 val user = userDataState.value.data
-                appBarTitle = user?.username.nullSafe()
+
+                LaunchedEffect(userDataState) {
+                    appBarTitle = user?.username.nullSafe()
+                }
+
                 UserProfile(
                     modifier = Modifier
                         .padding(horizontal = 8.dp)
@@ -142,10 +147,10 @@ fun UserProfileScreen(
 
                 val pagingItems = postLazyPagingItems.collectAsLazyPagingItems()
 
-                UserList(
+                PostList(
                     modifier = Modifier.padding(top = 4.dp),
-                    userDetailsPagingItems = pagingItems,
-                    onClickUser = onClickUser
+                    postsLazyPagingItems = pagingItems,
+                    onClickPost = onClickPost
                 )
 
             }
@@ -278,10 +283,10 @@ fun UserAddressCard(
 }
 
 @Composable
-fun UserList(
+fun PostList(
     modifier: Modifier = Modifier,
-    userDetailsPagingItems: LazyPagingItems<Post>,
-    onClickUser: (Post) -> Unit
+    postsLazyPagingItems: LazyPagingItems<Post>,
+    onClickPost: (Post) -> Unit
 ) {
     LazyVerticalGrid(
         modifier = modifier.fadingEdge(
@@ -295,13 +300,13 @@ fun UserList(
         verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        items(userDetailsPagingItems) { userDetail ->
-            UserItem(
+        items(postsLazyPagingItems) { userDetail ->
+            PostItem(
                 userDetail = userDetail,
-                onClickUser = onClickUser
+                onClickUser = onClickPost
             )
         }
-        userDetailsPagingItems.apply {
+        postsLazyPagingItems.apply {
 
             when (loadState.refresh) {
                 is LoadState.Loading -> {
@@ -425,7 +430,7 @@ fun UserList(
 }
 
 @Composable
-fun UserItem(userDetail: Post, onClickUser: (Post) -> Unit) {
+fun PostItem(userDetail: Post, onClickUser: (Post) -> Unit) {
     NetworkImage(
         modifier = Modifier
             .size(100.dp)

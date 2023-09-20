@@ -16,7 +16,7 @@ fun MainGraph(
     NavHost(navController = navController, startDestination = Screen.UserProfileScreen.route) {
         composable(Screen.UserProfileScreen.route) {
             UserProfileScreen(
-                onClickUser = { userDetail ->
+                onClickPost = { userDetail ->
                     navController.currentBackStackEntry?.savedStateHandle?.apply {
                         set(KEY_USER, userDetail)
                     }
