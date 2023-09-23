@@ -131,7 +131,6 @@ fun ProfileScreen(
 
                 is NetworkResult.Success -> {
                     PostList(
-                        modifier = Modifier.padding(top = 4.dp),
                         list = userPosts.data ?: emptyList(),
                         onClickPost = onClickPost
                     )
@@ -160,8 +159,8 @@ private fun PostList(
         modifier = modifier,
         contentPadding = PaddingValues(8.dp),
         columns = GridCells.Fixed(3),
-        verticalArrangement = Arrangement.spacedBy(10.dp),
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(list) { post ->
             PostItem(

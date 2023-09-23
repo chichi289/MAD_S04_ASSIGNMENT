@@ -75,7 +75,7 @@ private fun PostList(
 
     LazyColumn(
         modifier = modifier,
-        contentPadding = PaddingValues(8.dp),
+        contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
