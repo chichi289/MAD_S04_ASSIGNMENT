@@ -7,6 +7,6 @@ import retrofit2.http.GET
 interface UserService {
 
     @GET("v1/users/random")
-    fun getRandomUser(): Response<UserResponse>
+    suspend fun getRandomUser(): Response<UserResponse>
 
 }

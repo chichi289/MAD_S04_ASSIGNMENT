@@ -3,11 +3,8 @@
     <string name="content_description_back">Back</string>
     <string name="description_user_profile_picture">User profile picture</string>
     <string name="description_back_arrow">back arrow</string>
-    <string name="txt_post_details">Post Details</string>
-    <string name="txt_author">Author</string>
-    <string name="txt_width">Width</string>
-    <string name="txt_height">Height</string>
-    <string name="txt_url">URL:</string>
     <string name="txt_loading">Loading…</string>
     <string name="txt_retry">Retry</string>
+    <string name="txt_hey_there">Hey there,</string>
+    <string name="txt_login">Login</string>
 </resources>

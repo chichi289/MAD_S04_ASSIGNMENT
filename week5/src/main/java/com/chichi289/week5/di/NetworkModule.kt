@@ -1,6 +1,8 @@
 package com.chichi289.week5.di
 
 import com.chichi289.week5.BuildConfig
+import com.chichi289.week5.data.remote.service.PostService
+import com.chichi289.week5.data.remote.service.UserService
 import com.chichi289.week5.utils.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -10,6 +12,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -40,5 +43,18 @@ class NetworkModule {
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+
+
+    @Singleton
+    @Provides
+    fun provideUserService(
+        retrofit: Retrofit
+    ): UserService = retrofit.create()
+
+    @Singleton
+    @Provides
+    fun providePostService(
+        retrofit: Retrofit
+    ): PostService = retrofit.create()
 
 }
