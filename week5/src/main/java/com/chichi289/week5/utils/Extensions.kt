@@ -7,3 +7,4 @@ fun String?.log() {
 }
 
 fun String?.nullSafe() = this ?: ""
+fun Int?.nullSafe() = this ?: 0

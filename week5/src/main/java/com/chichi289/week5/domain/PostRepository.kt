@@ -13,7 +13,7 @@ interface PostRepository {
 
     suspend fun getPostsByUserId(userId: Int): Flow<NetworkResult<List<Post>>>
 
-    suspend fun getPostDetail(postId: Int): Flow<NetworkResult<PostDetailResponse>>
+    suspend fun getPostDetail(postId: Long): Flow<NetworkResult<Post>>
 
     fun deletePost(deletePost: DeletePost): Unit
 

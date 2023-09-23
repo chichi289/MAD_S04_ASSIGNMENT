@@ -25,7 +25,7 @@ interface PostService {
 
     @GET("v1/posts/{postId}")
     suspend fun getPostDetail(
-        @Path("postId") postId: Int
+        @Path("postId") postId: Long
     ): Response<PostDetailResponse>
 
     @DELETE("v1/posts/{postId}")

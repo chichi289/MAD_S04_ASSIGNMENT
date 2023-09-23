@@ -19,8 +19,6 @@ fun KeyValueText(
     value: String
 ) {
     val finalString = buildAnnotatedString {
-        append(key)
-        append(": ")
         withStyle(
             style = SpanStyle(
                 color = Color.Black,
@@ -28,8 +26,11 @@ fun KeyValueText(
                 fontSize = MaterialTheme.typography.titleMedium.fontSize
             ),
         ) {
-            append(value)
+            append(key)
         }
+
+        append(": ")
+        append(value)
     }
 
     Text(

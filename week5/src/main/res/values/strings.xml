@@ -14,4 +14,9 @@
     <string name="txt_posts">Posts</string>
     <string name="txt_followers">Followers</string>
     <string name="txt_following">Following</string>
+    <string name="txt_created_by">Created by</string>
+    <string name="txt_created_at">Created at</string>
+    <string name="txt_url">URL:</string>
+    <string name="txt_likes">Likes</string>
+    <string name="txt_comments">Comments</string>
 </resources>
