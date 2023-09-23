@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -15,10 +14,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.chichi289.week5.domain.LocalRepository
 import com.chichi289.week5.navigation.MainGraph
-import com.chichi289.week5.navigation.Screen
 import com.chichi289.week5.ui.theme.MAD_S04_ASSIGNMENTTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -41,21 +38,10 @@ class MainActivity : ComponentActivity() {
                         localRepository.getUser()
                     }.collectAsState(emptyList())
 
-                    val navController = rememberNavController()
-
-                    LaunchedEffect(Unit) {
-                        navController.graph.setStartDestination(
-                            if (users.isEmpty()) {
-                                Screen.Login.route
-                            } else {
-                                Screen.Main.route
-                            }
-                        )
-                    }
-
                     MainGraph(
-                        navController = navController
+                        navController = rememberNavController()
                     )
+
                 }
             }
         }
