@@ -35,7 +35,9 @@ data class NavItem(
 )
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    onClickPost: (Int) -> Unit
+) {
 
     val items = listOf(
         NavItem(Screen.Main.Home, Icons.Filled.Home, stringResource(R.string.nav_item_home)),
@@ -100,7 +102,7 @@ fun MainScreen() {
                 ProfileScreen(
                     viewModel = profileViewModel,
                     onClickPost = {
-
+                        onClickPost.invoke(it.postId)
                     }
                 )
             }

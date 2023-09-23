@@ -7,12 +7,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.chichi289.week5.presentation.login.LoginScreen
 import com.chichi289.week5.presentation.login.LoginViewModel
 import com.chichi289.week5.presentation.main.MainScreen
 import com.chichi289.week5.presentation.post.PostDetail
+import com.chichi289.week5.utils.KEY_POST_ID
 
 @Composable
 fun MainGraph(
@@ -44,10 +47,22 @@ fun MainGraph(
         }
 
         composable(Screen.Main.route) {
-            MainScreen()
+            MainScreen(
+                onClickPost = { postId ->
+                    navController.navigate(Screen.PostDetail.postId(postId))
+                }
+            )
         }
-        composable(Screen.PostDetail.route) {
-            PostDetail()
+        composable(
+            route = Screen.PostDetail.route,
+            arguments = listOf(
+                navArgument(KEY_POST_ID) {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            val postId = it.arguments?.getInt(KEY_POST_ID) ?: return@composable
+            PostDetail(postId)
         }
 
     }
