@@ -19,20 +19,14 @@ class LoginViewModel @Inject constructor(
     private val localRepository: LocalRepository
 ) : ViewModel() {
 
-    private val _mutableUserStateFlow: MutableStateFlow<NetworkResult<User>> =
-        MutableStateFlow(NetworkResult.Loading())
-    val userStateFlow: StateFlow<NetworkResult<User>> = _mutableUserStateFlow
+    val userFlow = localRepository.getUser()
 
     fun getRandomUser() {
         viewModelScope.launch {
             userRepository.getRandomUser().collect { networkResult ->
-
+                // Save user to room db
                 if (networkResult is NetworkResult.Success) {
                     networkResult.data?.let { localRepository.insertUser(it) }
-                }
-
-                _mutableUserStateFlow.update {
-                    networkResult
                 }
             }
         }
