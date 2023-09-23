@@ -33,6 +33,7 @@ import com.chichi289.week5.ui.components.HyperlinkText
 import com.chichi289.week5.ui.components.KeyValueText
 import com.chichi289.week5.ui.components.LoadingIndicator
 import com.chichi289.week5.ui.components.NetworkImage
+import com.chichi289.week5.ui.components.NoInternet
 import com.chichi289.week5.utils.nullSafe
 
 @Composable
@@ -141,7 +142,9 @@ fun PostDetail(
                 }
 
                 is NetworkResult.Error -> {}
-                is NetworkResult.NoInternetError -> {}
+                is NetworkResult.NoInternetError -> {
+                    NoInternet()
+                }
             }
         }
     }

@@ -37,6 +37,7 @@ import com.chichi289.week5.ui.components.CustomText
 import com.chichi289.week5.ui.components.CustomTopAppBar
 import com.chichi289.week5.ui.components.LoadingIndicator
 import com.chichi289.week5.ui.components.NetworkImage
+import com.chichi289.week5.ui.components.NoInternet
 import com.chichi289.week5.ui.components.VerticalSpacer
 import com.chichi289.week5.ui.components.fadingEdge
 import com.chichi289.week5.ui.theme.DarkBackground
@@ -143,7 +144,9 @@ fun ProfileScreen(
 
                 }
 
-                is NetworkResult.NoInternetError -> {}
+                is NetworkResult.NoInternetError -> {
+                    NoInternet()
+                }
             }
         }
     }
