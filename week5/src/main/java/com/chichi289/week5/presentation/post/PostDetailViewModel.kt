@@ -2,6 +2,7 @@ package com.chichi289.week5.presentation.post
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chichi289.week5.data.remote.model.DeletePostRequest
 import com.chichi289.week5.data.remote.model.NetworkResult
 import com.chichi289.week5.data.remote.model.post.Post
 import com.chichi289.week5.domain.PostRepository
@@ -25,6 +26,13 @@ class PostDetailViewModel @Inject constructor(
             postRepository.getPostDetail(postId).collect {
                 _mutablePostStateFlow.value = it
             }
+        }
+    }
+
+    fun deletePost(postId: Long) {
+        viewModelScope.launch {
+            val deletePost = DeletePostRequest(postId)
+            postRepository.deletePost(deletePost)
         }
     }
 

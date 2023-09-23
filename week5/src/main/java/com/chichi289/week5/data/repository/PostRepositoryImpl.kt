@@ -3,7 +3,7 @@ package com.chichi289.week5.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.chichi289.week5.data.remote.model.DeletePost
+import com.chichi289.week5.data.remote.model.DeletePostRequest
 import com.chichi289.week5.data.remote.model.NetworkResult
 import com.chichi289.week5.data.remote.model.post.Post
 import com.chichi289.week5.data.remote.service.PostService
@@ -74,7 +74,7 @@ class PostRepositoryImpl @Inject constructor(
             }
     }
 
-    override fun deletePost(deletePost: DeletePost) {
-        TODO("Not yet implemented")
+    override suspend fun deletePost(deletePost: DeletePostRequest) {
+        postService.deletePost(deletePost.postId,deletePost)
     }
 }

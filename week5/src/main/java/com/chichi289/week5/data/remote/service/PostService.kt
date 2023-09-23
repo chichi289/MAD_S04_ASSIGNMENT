@@ -1,6 +1,6 @@
 package com.chichi289.week5.data.remote.service
 
-import com.chichi289.week5.data.remote.model.DeletePost
+import com.chichi289.week5.data.remote.model.DeletePostRequest
 import com.chichi289.week5.data.remote.model.post.PostsResponse
 import com.chichi289.week5.data.remote.model.post_detail.PostDetailResponse
 import retrofit2.Response
@@ -30,6 +30,7 @@ interface PostService {
 
     @DELETE("v1/posts/{postId}")
     suspend fun deletePost(
-        @Body deletePost: DeletePost
+        @Path("postId") postId: Long,
+        @Body request: DeletePostRequest
     ): Response<Unit>
 }

@@ -71,7 +71,8 @@ fun PostDetailScreen(
                 },
                 actions = {
                     IconButton(onClick = {
-                        onDeletePost.invoke(postId)
+                        viewModel.deletePost(postId)
+                        // onDeletePost.invoke(postId)
                     }) {
                         Icon(
                             Icons.Default.Delete,
