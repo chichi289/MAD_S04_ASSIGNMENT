@@ -30,7 +30,9 @@ class ProfileViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             localRepository.getUser().collect {
-                _mutableUserStateFlow.value = it.first()
+                if(it.isNotEmpty()){
+                    _mutableUserStateFlow.value = it.first()
+                }
             }
         }
     }

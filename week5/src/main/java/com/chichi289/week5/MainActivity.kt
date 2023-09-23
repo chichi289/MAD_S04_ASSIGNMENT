@@ -18,6 +18,7 @@ import com.chichi289.week5.navigation.MainGraph
 import com.chichi289.week5.navigation.Screen
 import com.chichi289.week5.ui.theme.MAD_S04_ASSIGNMENTTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @AndroidEntryPoint

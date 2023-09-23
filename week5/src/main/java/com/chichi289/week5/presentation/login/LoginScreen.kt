@@ -32,7 +32,7 @@ fun LoginScreen(
             textStyle = TextStyle(
                 color = Color.Black,
                 fontWeight = FontWeight.Bold,
-                fontSize = MaterialTheme.typography.bodyLarge.fontSize,
+                fontSize = MaterialTheme.typography.headlineLarge.fontSize,
             )
         )
         VerticalSpacer(height = 12.dp)

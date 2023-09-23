@@ -21,7 +21,7 @@ import com.chichi289.week5.utils.KEY_POST_ID
 fun MainGraph(
     navController: NavHostController
 ) {
-    NavHost(navController = navController, startDestination = Screen.Main.route) {
+    NavHost(navController = navController, startDestination = Screen.Login.route) {
 
         composable(Screen.Login.route) {
             val viewModel: LoginViewModel = hiltViewModel()
