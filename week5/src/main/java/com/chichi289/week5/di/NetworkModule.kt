@@ -1,10 +1,7 @@
 package com.chichi289.week5.di
 
 import com.chichi289.week5.BuildConfig
-import com.chichi289.week5.utils.BASE_URL_PICSUM_PHOTOS
-import com.chichi289.week5.utils.BASE_URL_RANDOM_DATA
-import com.chichi289.week5.utils.RETROFIT_PICSUM_PHOTOS
-import com.chichi289.week5.utils.RETROFIT_RANDOM_DATA
+import com.chichi289.week5.utils.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +10,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Named
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -39,18 +35,8 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    @Named(RETROFIT_RANDOM_DATA)
     fun providerRetrofitRandomData(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL_RANDOM_DATA)
-        .client(okHttpClient)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    @Singleton
-    @Provides
-    @Named(RETROFIT_PICSUM_PHOTOS)
-    fun providerRetrofitPicsumPhotos(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL_PICSUM_PHOTOS)
+        .baseUrl(BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
