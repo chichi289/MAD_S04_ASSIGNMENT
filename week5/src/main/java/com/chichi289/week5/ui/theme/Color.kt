@@ -12,3 +12,5 @@ val Pink40 = Color(0xFF7D5260)
 
 val DarkBackground = Color(0xFFEDE7FC)
 val LightBackground = Color(0xFFD0BCFF)
+
+val PostItemBackground = Color(0xFFEFF3F6)

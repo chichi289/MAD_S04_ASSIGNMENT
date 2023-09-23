@@ -1,11 +1,14 @@
 package com.chichi289.week5.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.chichi289.week5.data.remote.model.DeletePost
 import com.chichi289.week5.data.remote.model.NetworkResult
 import com.chichi289.week5.data.remote.model.post.Post
-import com.chichi289.week5.data.remote.model.post.PostsResponse
 import com.chichi289.week5.data.remote.service.PostService
 import com.chichi289.week5.domain.PostRepository
+import com.chichi289.week5.presentation.home.PostsDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -19,9 +22,11 @@ import javax.inject.Singleton
 class PostRepositoryImpl @Inject constructor(
     private val postService: PostService
 ) : PostRepository {
-    override fun getPosts(page: Int, size: Int): PostsResponse {
-        TODO("Not yet implemented")
-    }
+
+    override val posts: Flow<PagingData<Post>> =
+        Pager(config = PagingConfig(pageSize = 10)) {
+            PostsDataSource(postService = postService)
+        }.flow
 
     override suspend fun getPostsByUserId(userId: Int): Flow<NetworkResult<List<Post>>> {
         return flow {

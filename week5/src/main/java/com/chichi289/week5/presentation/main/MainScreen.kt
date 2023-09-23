@@ -94,7 +94,11 @@ fun MainScreen(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Main.Home.route) {
-                HomeScreen()
+                HomeScreen(
+                    onClickPost = {
+                        onClickPost.invoke(it.postId)
+                    }
+                )
             }
             composable(Screen.Main.Profile.route) {
                 val profileViewModel: ProfileViewModel = hiltViewModel()

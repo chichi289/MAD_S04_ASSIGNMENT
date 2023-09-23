@@ -153,7 +153,7 @@ fun ProfileScreen(
 }
 
 @Composable
-fun PostList(
+private fun PostList(
     modifier: Modifier = Modifier,
     list: List<Post>,
     onClickPost: (Post) -> Unit
@@ -181,7 +181,7 @@ fun PostList(
 }
 
 @Composable
-fun PostItem(post: Post, onClickUser: (Post) -> Unit) {
+private fun PostItem(post: Post, onClickUser: (Post) -> Unit) {
     NetworkImage(
         modifier = Modifier
             .size(120.dp)

@@ -37,7 +37,7 @@ import com.chichi289.week5.ui.components.NoInternet
 import com.chichi289.week5.utils.nullSafe
 
 @Composable
-fun PostDetail(
+fun PostDetailScreen(
     postId: Long,
     viewModel: PostDetailViewModel = hiltViewModel(),
     onBack: () -> Unit,

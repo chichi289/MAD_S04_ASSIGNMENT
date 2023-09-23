@@ -14,7 +14,7 @@ import androidx.navigation.navArgument
 import com.chichi289.week5.presentation.login.LoginScreen
 import com.chichi289.week5.presentation.login.LoginViewModel
 import com.chichi289.week5.presentation.main.MainScreen
-import com.chichi289.week5.presentation.post.PostDetail
+import com.chichi289.week5.presentation.post.PostDetailScreen
 import com.chichi289.week5.utils.KEY_POST_ID
 
 @Composable
@@ -62,9 +62,11 @@ fun MainGraph(
             )
         ) {
             val postId = it.arguments?.getLong(KEY_POST_ID) ?: return@composable
-            PostDetail(
+            PostDetailScreen(
                 postId = postId,
-                onBack = {},
+                onBack = {
+                    navController.popBackStack()
+                },
                 onDeletePost = {}
             )
         }
