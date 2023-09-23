@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -24,6 +25,7 @@ import com.chichi289.week5.R
 import com.chichi289.week5.navigation.Screen
 import com.chichi289.week5.presentation.home.HomeScreen
 import com.chichi289.week5.presentation.profile.ProfileScreen
+import com.chichi289.week5.presentation.profile.ProfileViewModel
 import com.chichi289.week5.ui.components.CustomText
 
 data class NavItem(
@@ -94,7 +96,8 @@ fun MainScreen() {
                 HomeScreen()
             }
             composable(Screen.Main.Profile.route) {
-                ProfileScreen()
+                val profileViewModel: ProfileViewModel = hiltViewModel()
+                ProfileScreen(profileViewModel)
             }
         }
     }
