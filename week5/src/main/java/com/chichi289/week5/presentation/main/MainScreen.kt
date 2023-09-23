@@ -36,9 +36,9 @@ data class NavItem(
 fun MainScreen() {
 
     val items = listOf(
-        NavItem(Screen.Home, Icons.Filled.Home, stringResource(R.string.nav_item_home)),
+        NavItem(Screen.Main.Home, Icons.Filled.Home, stringResource(R.string.nav_item_home)),
         NavItem(
-            Screen.Profile, Icons.Filled.AccountCircle,
+            Screen.Main.Profile, Icons.Filled.AccountCircle,
             stringResource(R.string.nav_item_profile)
         )
     )
@@ -50,7 +50,7 @@ fun MainScreen() {
             NavigationBar {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination: NavDestination =
-                    navBackStackEntry?.destination ?: NavDestination(Screen.Home.route)
+                    navBackStackEntry?.destination ?: NavDestination(Screen.Main.Home.route)
                 items.forEach { navItem ->
                     NavigationBarItem(
                         selected = currentDestination.hierarchy.any { it.route == navItem.screen.route },
@@ -79,7 +79,7 @@ fun MainScreen() {
                         label = {
                             CustomText(text = navItem.title)
                         },
-                        alwaysShowLabel = false,
+                        alwaysShowLabel = false
                     )
                 }
             }
@@ -87,13 +87,13 @@ fun MainScreen() {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Home.route,
+            startDestination = Screen.Main.Home.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(Screen.Home.route) {
+            composable(Screen.Main.Home.route) {
                 HomeScreen()
             }
-            composable(Screen.Profile.route) {
+            composable(Screen.Main.Profile.route) {
                 ProfileScreen()
             }
         }
