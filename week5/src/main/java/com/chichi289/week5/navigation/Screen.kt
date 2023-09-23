@@ -10,6 +10,6 @@ sealed class Screen(val route: String) {
     }
 
     object PostDetail : Screen("post_detail/{$KEY_POST_ID}") {
-        fun postId(postId: Int) = "post_detail/$postId"
+        fun postId(postId: Long) = "post_detail/$postId"
     }
 }

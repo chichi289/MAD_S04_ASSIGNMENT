@@ -3,10 +3,12 @@
     <string name="content_description_back">Back</string>
     <string name="description_user_profile_picture">User profile picture</string>
     <string name="description_back_arrow">back arrow</string>
+    <string name="description_delete">delete post</string>
     <string name="txt_loading">Loading…</string>
     <string name="txt_retry">Retry</string>
     <string name="txt_hey_there">Hey there,</string>
     <string name="txt_login">Login</string>
     <string name="nav_item_home">Home</string>
     <string name="nav_item_profile">Profile</string>
+    <string name="txt_post_details">Post Details</string>
 </resources>

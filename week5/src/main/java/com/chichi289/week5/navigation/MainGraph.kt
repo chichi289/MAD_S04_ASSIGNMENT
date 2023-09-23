@@ -57,12 +57,16 @@ fun MainGraph(
             route = Screen.PostDetail.route,
             arguments = listOf(
                 navArgument(KEY_POST_ID) {
-                    type = NavType.IntType
+                    type = NavType.LongType
                 }
             )
         ) {
-            val postId = it.arguments?.getInt(KEY_POST_ID) ?: return@composable
-            PostDetail(postId)
+            val postId = it.arguments?.getLong(KEY_POST_ID) ?: return@composable
+            PostDetail(
+                postId = postId,
+                onBack = {},
+                onDeletePost = {}
+            )
         }
 
     }

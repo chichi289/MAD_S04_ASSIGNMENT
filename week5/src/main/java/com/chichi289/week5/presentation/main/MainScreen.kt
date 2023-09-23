@@ -36,7 +36,7 @@ data class NavItem(
 
 @Composable
 fun MainScreen(
-    onClickPost: (Int) -> Unit
+    onClickPost: (Long) -> Unit
 ) {
 
     val items = listOf(
@@ -82,8 +82,7 @@ fun MainScreen(
                         },
                         label = {
                             CustomText(text = navItem.title)
-                        },
-                        alwaysShowLabel = false
+                        }
                     )
                 }
             }
@@ -91,7 +90,7 @@ fun MainScreen(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Main.Profile.route,
+            startDestination = Screen.Main.Home.route,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Main.Home.route) {

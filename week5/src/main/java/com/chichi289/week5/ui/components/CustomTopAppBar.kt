@@ -1,5 +1,6 @@
 package com.chichi289.week5.ui.components
 
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -14,12 +15,14 @@ import com.chichi289.week5.ui.theme.DarkBackground
 fun CustomTopAppBar(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    navigationIcon: @Composable () -> Unit = {}
+    navigationIcon: @Composable () -> Unit = {},
+    actions: @Composable RowScope.() -> Unit = {}
 ) {
     TopAppBar(
         title = title,
         modifier = modifier.shadow(2.dp),
         navigationIcon = navigationIcon,
+        actions = actions,
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = DarkBackground
         )

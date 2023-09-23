@@ -16,7 +16,7 @@ data class Post(
     @SerializedName("likesCount")
     val likesCount: Int,
     @SerializedName("postId")
-    val postId: Int,
+    val postId: Long,
     @SerializedName("url")
     val url: String,
     @SerializedName("user")
