@@ -179,7 +179,7 @@ fun PostList(
 fun PostItem(post: Post, onClickUser: (Post) -> Unit) {
     NetworkImage(
         modifier = Modifier
-            .size(100.dp)
+            .size(120.dp)
             .clip(RoundedCornerShape(12.dp))
             .clickable { onClickUser.invoke(post) },
         url = post.url,
