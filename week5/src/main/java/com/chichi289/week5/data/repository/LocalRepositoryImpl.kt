@@ -11,13 +11,13 @@ import javax.inject.Singleton
 class LocalRepositoryImpl @Inject constructor(
     private val userDao: UserDao
 ) : LocalRepository {
-    override fun insertUser(user: User) {
+    override suspend fun insertUser(user: User) {
         userDao.insertUser(user)
     }
 
     override fun getUser(): Flow<List<User>> = userDao.getUser()
 
-    override fun deleteUser(user: User) {
+    override suspend fun deleteUser(user: User) {
         userDao.deleteUser(user)
     }
 }
