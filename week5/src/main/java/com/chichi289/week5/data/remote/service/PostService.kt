@@ -13,23 +13,23 @@ import retrofit2.http.Query
 interface PostService {
 
     @GET("v1/posts")
-    fun getPosts(
+    suspend fun getPosts(
         @Query("page") page: Int,
         @Query("size") size: Int,
     ): Response<PostsResponse>
 
     @GET("v1/posts/users/{userId}")
-    fun getPostsByUserId(
+    suspend fun getPostsByUserId(
         @Path("userId") userId: Int
     ): Response<PostsResponse>
 
     @GET("v1/posts/{postId}")
-    fun getPostDetail(
+    suspend fun getPostDetail(
         @Path("postId") postId: Int
     ): Response<PostDetailResponse>
 
     @DELETE("v1/posts/{postId}")
-    fun deletePost(
+    suspend fun deletePost(
         @Body deletePost: DeletePost
     ): Response<Unit>
 }

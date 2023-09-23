@@ -1,8 +1,10 @@
 package com.chichi289.week5.di
 
 import com.chichi289.week5.data.repository.LocalRepositoryImpl
+import com.chichi289.week5.data.repository.PostRepositoryImpl
 import com.chichi289.week5.data.repository.UserRepositoryImpl
 import com.chichi289.week5.domain.LocalRepository
+import com.chichi289.week5.domain.PostRepository
 import com.chichi289.week5.domain.UserRepository
 import dagger.Binds
 import dagger.Module
@@ -23,5 +25,8 @@ abstract class RepositoryModule {
         localRepositoryImpl: LocalRepositoryImpl
     ): LocalRepository
 
-
+    @Binds
+    abstract fun providePostRepository(
+        postRepositoryImpl: PostRepositoryImpl
+    ): PostRepository
 }

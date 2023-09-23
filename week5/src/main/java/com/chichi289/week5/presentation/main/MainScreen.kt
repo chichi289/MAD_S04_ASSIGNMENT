@@ -89,7 +89,7 @@ fun MainScreen() {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Main.Home.route,
+            startDestination = Screen.Main.Profile.route,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Main.Home.route) {
@@ -97,7 +97,12 @@ fun MainScreen() {
             }
             composable(Screen.Main.Profile.route) {
                 val profileViewModel: ProfileViewModel = hiltViewModel()
-                ProfileScreen(profileViewModel)
+                ProfileScreen(
+                    viewModel = profileViewModel,
+                    onClickPost = {
+
+                    }
+                )
             }
         }
     }

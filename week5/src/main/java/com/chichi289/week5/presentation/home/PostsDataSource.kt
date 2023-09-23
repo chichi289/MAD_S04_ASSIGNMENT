@@ -44,7 +44,7 @@ class PostsDataSource(
                         nextKey = null
                     )
                 }
-            }else{
+            } else {
                 LoadResult.Error(Exception(response.message()))
             }
 
