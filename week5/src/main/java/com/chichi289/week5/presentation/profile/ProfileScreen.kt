@@ -24,7 +24,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
@@ -39,8 +38,6 @@ import com.chichi289.week5.ui.components.LoadingIndicator
 import com.chichi289.week5.ui.components.NetworkImage
 import com.chichi289.week5.ui.components.NoInternet
 import com.chichi289.week5.ui.components.VerticalSpacer
-import com.chichi289.week5.ui.components.fadingEdge
-import com.chichi289.week5.ui.theme.DarkBackground
 import com.chichi289.week5.utils.log
 import com.chichi289.week5.utils.nullSafe
 
@@ -160,12 +157,7 @@ private fun PostList(
 ) {
     "size:${list.size}".log()
     LazyVerticalGrid(
-        modifier = modifier.fadingEdge(
-            Brush.verticalGradient(
-                0f to Color.Transparent,
-                0.3f to DarkBackground
-            )
-        ),
+        modifier = modifier,
         contentPadding = PaddingValues(8.dp),
         columns = GridCells.Fixed(3),
         verticalArrangement = Arrangement.spacedBy(10.dp),
