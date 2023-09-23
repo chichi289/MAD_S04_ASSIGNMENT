@@ -1,6 +1,8 @@
 package com.chichi289.week5.data.remote.service
 
 import com.chichi289.week5.data.remote.model.DeletePost
+import com.chichi289.week5.data.remote.model.post.PostsResponse
+import com.chichi289.week5.data.remote.model.post_detail.PostDetailResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -14,17 +16,17 @@ interface PostService {
     fun getPosts(
         @Query("page") page: Int,
         @Query("size") size: Int,
-    ): Response<Unit>
+    ): Response<PostsResponse>
 
     @GET("v1/posts/users/{userId}")
     fun getPostsByUserId(
         @Path("userId") userId: Int
-    ): Response<Unit>
+    ): Response<PostsResponse>
 
     @GET("v1/posts/{postId}")
     fun getPostDetail(
         @Path("postId") postId: Int
-    ): Response<Unit>
+    ): Response<PostDetailResponse>
 
     @DELETE("v1/posts/{postId}")
     fun deletePost(
