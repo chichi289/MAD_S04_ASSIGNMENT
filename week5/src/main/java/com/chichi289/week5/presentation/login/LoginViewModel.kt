@@ -14,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+
 ) : ViewModel() {
 
     private val _mutableUserStateFlow: MutableStateFlow<NetworkResult<User>> =

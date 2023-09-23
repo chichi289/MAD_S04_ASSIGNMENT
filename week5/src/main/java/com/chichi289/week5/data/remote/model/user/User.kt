@@ -2,8 +2,10 @@ package com.chichi289.week5.data.remote.model.user
 
 
 import androidx.annotation.Keep
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "user")
 @Keep
 data class User(
     @SerializedName("biography")

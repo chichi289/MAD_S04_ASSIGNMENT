@@ -1,4 +1,4 @@
-package com.chichi289.week5.data
+package com.chichi289.week5.data.repository
 
 import com.chichi289.week5.data.remote.model.NetworkResult
 import com.chichi289.week5.data.remote.model.user.User
