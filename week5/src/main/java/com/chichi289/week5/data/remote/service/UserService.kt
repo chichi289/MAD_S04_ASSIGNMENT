@@ -1,4 +1,4 @@
-package com.chichi289.week5.domain
+package com.chichi289.week5.data.remote.service
 
 import retrofit2.Response
 import retrofit2.http.GET
