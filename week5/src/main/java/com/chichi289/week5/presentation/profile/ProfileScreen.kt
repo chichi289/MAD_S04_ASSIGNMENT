@@ -27,7 +27,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.chichi289.week5.R
 import com.chichi289.week5.data.remote.model.NetworkResult
 import com.chichi289.week5.data.remote.model.post.Post
 import com.chichi289.week5.ui.components.CountText
@@ -86,17 +88,17 @@ fun ProfileScreen(
 
                 CountText(
                     count = user?.postsCount ?: 0,
-                    text = "Posts"
+                    text = stringResource(R.string.txt_posts)
                 )
 
                 CountText(
                     count = user?.followers ?: 0,
-                    text = "Followers"
+                    text = stringResource(R.string.txt_followers)
                 )
 
                 CountText(
                     count = user?.following ?: 0,
-                    text = "Following"
+                    text = stringResource(R.string.txt_following)
                 )
             }
 
@@ -116,7 +118,7 @@ fun ProfileScreen(
                 color = Color.Black,
                 thickness = 4.dp
             )
-            // TODO("Recomposed twice. Post list api is called twice")
+            // TODO("Recomposed when come from PostDetail")
             val userPosts by userPostsStateFlow.collectAsState()
             LaunchedEffect(user?.userId) {
                 user?.userId?.let { userId ->
