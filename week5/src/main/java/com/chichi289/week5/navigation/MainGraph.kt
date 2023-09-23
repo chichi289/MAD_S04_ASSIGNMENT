@@ -19,10 +19,9 @@ import com.chichi289.week5.utils.KEY_POST_ID
 
 @Composable
 fun MainGraph(
-    navController: NavHostController,
-    startDestination: String
+    navController: NavHostController
 ) {
-    NavHost(navController = navController, startDestination = startDestination) {
+    NavHost(navController = navController, startDestination = Screen.Main.route) {
 
         composable(Screen.Login.route) {
             val viewModel: LoginViewModel = hiltViewModel()
