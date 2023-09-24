@@ -43,7 +43,6 @@ class ProfileViewModel @Inject constructor(
                 _mutableUserPostsMutableStateFlow.value = it
             }
         }
-
     }
 
 }

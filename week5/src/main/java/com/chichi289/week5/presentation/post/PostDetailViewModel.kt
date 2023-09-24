@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.chichi289.week5.data.remote.model.NetworkResult
 import com.chichi289.week5.data.remote.model.post.Post
 import com.chichi289.week5.domain.PostRepository
-import com.chichi289.week5.utils.log
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

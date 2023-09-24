@@ -44,7 +44,6 @@ class NetworkModule {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-
     @Singleton
     @Provides
     fun provideUserService(

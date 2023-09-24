@@ -32,6 +32,7 @@ fun SplashScreen(
     }.collectAsState(emptyList())
 
     LaunchedEffect(Unit) {
+        // Hold splash screen for 2 seconds
         delay(2000)
         if (users.isEmpty()) {
             onNavigate.invoke(Screen.Login.route)

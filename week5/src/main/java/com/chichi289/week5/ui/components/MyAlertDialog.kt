@@ -19,7 +19,7 @@ fun MyAlertDialog(
 ) {
     AlertDialog(
         icon = {
-            Icon(icon, contentDescription = "Example Icon")
+            Icon(icon, contentDescription = stringResource(R.string.description_alert_dialog_icon))
         },
         title = {
             Text(text = dialogTitle)

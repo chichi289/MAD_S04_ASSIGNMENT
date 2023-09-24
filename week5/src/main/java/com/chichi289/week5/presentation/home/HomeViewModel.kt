@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val postRepository: PostRepository
+    postRepository: PostRepository
 ) : ViewModel() {
 
     val postsPagingFlow: Flow<PagingData<Post>> = postRepository

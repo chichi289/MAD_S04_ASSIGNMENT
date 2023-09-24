@@ -10,8 +10,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun HeaderText(modifier: Modifier,value: String) {
-
+fun HeaderText(modifier: Modifier, value: String) {
     Text(
         modifier = modifier,
         text = value,

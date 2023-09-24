@@ -27,4 +27,6 @@
     <string name="txt_delete_post">Delete Post</string>
     <string name="msg_are_you_sure_you_want_to_delete_this_post">Are you sure you want to delete this post?</string>
     <string name="description_app_logo">App logo</string>
+    <string name="txt_see_more">… See more</string>
+    <string name="description_alert_dialog_icon">Alert dialog Icon</string>
 </resources>

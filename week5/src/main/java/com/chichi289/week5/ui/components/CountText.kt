@@ -30,6 +30,5 @@ fun CountText(
         )
         VerticalSpacer(height = 8.dp)
         CustomText(text = text)
-
     }
 }

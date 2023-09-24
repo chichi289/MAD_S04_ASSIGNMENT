@@ -15,9 +15,11 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntSize
+import com.chichi289.week5.R
 
 // https://stackoverflow.com/a/68894858
 
@@ -67,7 +69,7 @@ fun ExpandableText(
         if (!expanded) {
             val density = LocalDensity.current
             Text(
-                "... See more",
+                stringResource(R.string.txt_see_more),
                 onTextLayout = { seeMoreSizeState.value = it.size },
                 modifier = Modifier
                     .then(

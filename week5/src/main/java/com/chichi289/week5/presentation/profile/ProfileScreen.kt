@@ -38,7 +38,6 @@ import com.chichi289.week5.ui.components.LoadingIndicator
 import com.chichi289.week5.ui.components.NetworkImage
 import com.chichi289.week5.ui.components.NoInternet
 import com.chichi289.week5.ui.components.VerticalSpacer
-import com.chichi289.week5.utils.log
 import com.chichi289.week5.utils.nullSafe
 
 @Composable
@@ -120,7 +119,6 @@ fun ProfileScreen(
             val userPosts by userPostsStateFlow.collectAsState()
             LaunchedEffect(user?.userId) {
                 user?.userId?.let { userId ->
-                    "Getting data for $userId".log()
                     viewModel.getPosts(userId = userId)
                 }
             }
@@ -154,7 +152,6 @@ private fun PostList(
     list: List<Post>,
     onClickPost: (Post) -> Unit
 ) {
-    "size:${list.size}".log()
     LazyVerticalGrid(
         modifier = modifier,
         contentPadding = PaddingValues(8.dp),
