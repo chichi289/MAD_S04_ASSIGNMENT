@@ -59,7 +59,13 @@ fun PostDetailScreen(
         viewModel.getPostDetail(postId)
     }
 
+    // Delete post confirmation dialog
     var showDeletePostDialog by remember {
+        mutableStateOf(false)
+    }
+
+    // Show progress indicator while delete post api is being called
+    var showLoadingIndicator by remember {
         mutableStateOf(false)
     }
 
@@ -94,7 +100,9 @@ fun PostDetailScreen(
         }
     ) {
         Box(
-            modifier = Modifier.padding(it),
+            modifier = Modifier
+                .padding(it)
+                .fillMaxSize(),
             contentAlignment = Alignment.TopCenter
         ) {
             Column(
@@ -175,11 +183,21 @@ fun PostDetailScreen(
                 }
             }
 
+            if (showLoadingIndicator) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    LoadingIndicator()
+                }
+            }
+
             if (showDeletePostDialog) {
                 MyAlertDialog(
                     onDismissRequest = { showDeletePostDialog = false },
                     onConfirmation = {
                         showDeletePostDialog = false
+                        showLoadingIndicator = true
                         viewModel.deletePost(
                             postId = postId,
                             userId = posts.data?.user?.userId.nullSafe().toLong()
