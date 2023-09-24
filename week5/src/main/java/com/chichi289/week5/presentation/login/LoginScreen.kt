@@ -1,8 +1,10 @@
 package com.chichi289.week5.presentation.login
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -10,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.chichi289.week5.R
 import com.chichi289.week5.ui.components.CustomText
+import com.chichi289.week5.ui.components.LoadingIndicator
 import com.chichi289.week5.ui.components.VerticalSpacer
 
 @Composable
@@ -31,6 +36,10 @@ fun LoginScreen(
     val users by remember {
         viewModel.userFlow
     }.collectAsState(emptyList())
+
+    var showProgress by remember {
+        mutableStateOf(false)
+    }
 
     LaunchedEffect(users) {
         if (users.isNotEmpty()) {
@@ -52,10 +61,20 @@ fun LoginScreen(
             )
         )
         VerticalSpacer(height = 12.dp)
-        Button(onClick = {
-            viewModel.getRandomUser()
-        }) {
-            Text(text = stringResource(R.string.txt_login))
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            if (showProgress) {
+                LoadingIndicator(Modifier.fillMaxWidth())
+            } else {
+                Button(onClick = {
+                    showProgress = true
+                    viewModel.getRandomUser()
+                }) {
+                    Text(text = stringResource(R.string.txt_login))
+                }
+            }
         }
     }
 }
