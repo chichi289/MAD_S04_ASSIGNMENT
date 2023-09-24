@@ -21,7 +21,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,7 +38,6 @@ import com.chichi289.week5.ui.components.LoadingIndicator
 import com.chichi289.week5.ui.components.MyAlertDialog
 import com.chichi289.week5.ui.components.NetworkImage
 import com.chichi289.week5.ui.components.NoInternet
-import com.chichi289.week5.utils.log
 import com.chichi289.week5.utils.nullSafe
 
 @Composable
@@ -182,10 +180,10 @@ fun PostDetailScreen(
                     onDismissRequest = { showDeletePostDialog = false },
                     onConfirmation = {
                         showDeletePostDialog = false
-                         viewModel.deletePost(
-                             postId = postId,
-                             userId = posts.data?.user?.userId.nullSafe().toLong()
-                         )
+                        viewModel.deletePost(
+                            postId = postId,
+                            userId = posts.data?.user?.userId.nullSafe().toLong()
+                        )
                     },
                     dialogTitle = stringResource(R.string.txt_delete_post),
                     dialogText = stringResource(R.string.msg_are_you_sure_you_want_to_delete_this_post),
