@@ -49,8 +49,7 @@ fun MainGraph(
                 postId = postId,
                 onBack = {
                     navController.popBackStack()
-                },
-                onDeletePost = {}
+                }
             )
         }
     }

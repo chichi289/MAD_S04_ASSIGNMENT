@@ -2,10 +2,10 @@ package com.chichi289.week5.presentation.post
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.chichi289.week5.data.remote.model.DeletePostRequest
 import com.chichi289.week5.data.remote.model.NetworkResult
 import com.chichi289.week5.data.remote.model.post.Post
 import com.chichi289.week5.domain.PostRepository
+import com.chichi289.week5.utils.log
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,6 +21,11 @@ class PostDetailViewModel @Inject constructor(
         MutableStateFlow<NetworkResult<Post>>(NetworkResult.Loading())
     val postStateFlow: StateFlow<NetworkResult<Post>> = _mutablePostStateFlow
 
+
+    private val _mutableDeletePostStateFlow =
+        MutableStateFlow<NetworkResult<Unit>>(NetworkResult.Loading())
+    val deletePostStateFlow: StateFlow<NetworkResult<Unit>> = _mutableDeletePostStateFlow
+
     fun getPostDetail(postId: Long) {
         viewModelScope.launch {
             postRepository.getPostDetail(postId).collect {
@@ -29,9 +34,11 @@ class PostDetailViewModel @Inject constructor(
         }
     }
 
-    fun deletePost(postId:Long,userId: Long) {
+    fun deletePost(postId: Long, userId: Long) {
         viewModelScope.launch {
-            postRepository.deletePost(postId,userId)
+            postRepository.deletePost(postId, userId).collect {
+                _mutableDeletePostStateFlow.value = it
+            }
         }
     }
 

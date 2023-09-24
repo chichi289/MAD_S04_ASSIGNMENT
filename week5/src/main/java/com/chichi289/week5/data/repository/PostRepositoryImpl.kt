@@ -74,11 +74,28 @@ class PostRepositoryImpl @Inject constructor(
             }
     }
 
-    override suspend fun deletePost(postId: Long, userId: Long) {
+    override suspend fun deletePost(postId: Long, userId: Long): Flow<NetworkResult<Unit>> {
         val deletePost = DeletePostRequest(userId)
-        postService.deletePost(
-            postId = postId.toInt(),
-            deletePostRequest = deletePost
-        )
+        return flow {
+            emit(NetworkResult.Loading())
+            val response = postService.deletePost(
+                postId = postId.toInt(),
+                deletePostRequest = deletePost
+            )
+            if (response.isSuccessful && response.code() == 204) {
+                val responseBody = response.body()
+                emit(NetworkResult.Success(responseBody))
+            } else {
+                emit(NetworkResult.Error(response.message()))
+            }
+        }
+            .flowOn(Dispatchers.IO)
+            .catch { exception ->
+                if (exception is UnknownHostException) {
+                    emit(NetworkResult.NoInternetError("No internet connection"))
+                } else {
+                    emit(NetworkResult.Error(exception.message.toString()))
+                }
+            }
     }
 }

@@ -18,7 +18,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -32,6 +34,7 @@ import com.chichi289.week5.ui.components.CustomTopAppBar
 import com.chichi289.week5.ui.components.HyperlinkText
 import com.chichi289.week5.ui.components.KeyValueText
 import com.chichi289.week5.ui.components.LoadingIndicator
+import com.chichi289.week5.ui.components.MyAlertDialog
 import com.chichi289.week5.ui.components.NetworkImage
 import com.chichi289.week5.ui.components.NoInternet
 import com.chichi289.week5.utils.nullSafe
@@ -40,16 +43,23 @@ import com.chichi289.week5.utils.nullSafe
 fun PostDetailScreen(
     postId: Long,
     viewModel: PostDetailViewModel = hiltViewModel(),
-    onBack: () -> Unit,
-    onDeletePost: (Long) -> Unit
+    onBack: () -> Unit
 ) {
 
     val posts by remember {
         viewModel.postStateFlow
     }.collectAsState()
 
+    val deletePost by remember {
+        viewModel.deletePostStateFlow
+    }.collectAsState()
+
     LaunchedEffect(postId) {
         viewModel.getPostDetail(postId)
+    }
+
+    var showDeletePostDialog by remember {
+        mutableStateOf(false)
     }
 
     Scaffold(
@@ -71,11 +81,7 @@ fun PostDetailScreen(
                 },
                 actions = {
                     IconButton(onClick = {
-                        viewModel.deletePost(
-                            postId = postId,
-                            userId = posts.data?.user?.userId.nullSafe().toLong()
-                        )
-                        // onDeletePost.invoke(postId)
+                        showDeletePostDialog = true
                     }) {
                         Icon(
                             Icons.Default.Delete,
@@ -150,6 +156,32 @@ fun PostDetailScreen(
                     NoInternet()
                 }
             }
+        }
+
+        when (deletePost) {
+            is NetworkResult.Success -> {
+                showDeletePostDialog = false
+                onBack.invoke()
+            }
+
+            else -> {
+                // Ignore
+            }
+        }
+
+        if (showDeletePostDialog) {
+            MyAlertDialog(
+                onDismissRequest = { showDeletePostDialog = false },
+                onConfirmation = {
+                    viewModel.deletePost(
+                        postId = postId,
+                        userId = posts.data?.user?.userId.nullSafe().toLong()
+                    )
+                },
+                dialogTitle = stringResource(R.string.txt_delete_post),
+                dialogText = stringResource(R.string.msg_are_you_sure_you_want_to_delete_this_post),
+                icon = Icons.Default.Delete
+            )
         }
     }
 }

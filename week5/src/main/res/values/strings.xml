@@ -22,4 +22,8 @@
     <string name="txt_likes">Likes</string>
     <string name="txt_comments">Comments</string>
     <string name="txt_home">Home</string>
+    <string name="txt_yes">Yes</string>
+    <string name="txt_no">No</string>
+    <string name="txt_delete_post">Delete Post</string>
+    <string name="msg_are_you_sure_you_want_to_delete_this_post">Are you sure you want to delete this post?</string>
 </resources>
