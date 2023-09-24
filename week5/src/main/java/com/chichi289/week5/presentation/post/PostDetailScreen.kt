@@ -71,7 +71,10 @@ fun PostDetailScreen(
                 },
                 actions = {
                     IconButton(onClick = {
-                        viewModel.deletePost(postId)
+                        viewModel.deletePost(
+                            postId = postId,
+                            userId = posts.data?.user?.userId.nullSafe().toLong()
+                        )
                         // onDeletePost.invoke(postId)
                     }) {
                         Icon(

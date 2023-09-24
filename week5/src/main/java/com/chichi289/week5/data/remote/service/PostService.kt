@@ -5,8 +5,8 @@ import com.chichi289.week5.data.remote.model.post.PostsResponse
 import com.chichi289.week5.data.remote.model.post_detail.PostDetailResponse
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -28,9 +28,10 @@ interface PostService {
         @Path("postId") postId: Long
     ): Response<PostDetailResponse>
 
-    @DELETE("v1/posts/{postId}")
+    @HTTP(method = "DELETE", path = "/v1/posts/{postId}", hasBody = true)
     suspend fun deletePost(
-        @Path("postId") postId: Long,
-        @Body request: DeletePostRequest
+        @Path(value = "postId", encoded = false) postId: Int,
+        @Body deletePostRequest: DeletePostRequest
     ): Response<Unit>
+
 }

@@ -14,6 +14,6 @@ interface PostRepository {
 
     suspend fun getPostDetail(postId: Long): Flow<NetworkResult<Post>>
 
-    suspend fun deletePost(deletePost: DeletePostRequest): Unit
+    suspend fun deletePost(postId: Long,userId: Long): Unit
 
 }

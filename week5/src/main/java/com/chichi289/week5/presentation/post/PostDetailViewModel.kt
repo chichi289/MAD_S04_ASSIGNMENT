@@ -29,10 +29,9 @@ class PostDetailViewModel @Inject constructor(
         }
     }
 
-    fun deletePost(postId: Long) {
+    fun deletePost(postId:Long,userId: Long) {
         viewModelScope.launch {
-            val deletePost = DeletePostRequest(postId)
-            postRepository.deletePost(deletePost)
+            postRepository.deletePost(postId,userId)
         }
     }
 

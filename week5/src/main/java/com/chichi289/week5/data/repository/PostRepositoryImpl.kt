@@ -74,7 +74,11 @@ class PostRepositoryImpl @Inject constructor(
             }
     }
 
-    override suspend fun deletePost(deletePost: DeletePostRequest) {
-        postService.deletePost(deletePost.postId,deletePost)
+    override suspend fun deletePost(postId: Long, userId: Long) {
+        val deletePost = DeletePostRequest(userId)
+        postService.deletePost(
+            postId = postId.toInt(),
+            deletePostRequest = deletePost
+        )
     }
 }
