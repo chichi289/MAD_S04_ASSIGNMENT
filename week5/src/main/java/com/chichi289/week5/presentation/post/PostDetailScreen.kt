@@ -1,6 +1,7 @@
 package com.chichi289.week5.presentation.post
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -20,6 +21,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,6 +39,7 @@ import com.chichi289.week5.ui.components.LoadingIndicator
 import com.chichi289.week5.ui.components.MyAlertDialog
 import com.chichi289.week5.ui.components.NetworkImage
 import com.chichi289.week5.ui.components.NoInternet
+import com.chichi289.week5.utils.log
 import com.chichi289.week5.utils.nullSafe
 
 @Composable
@@ -92,96 +95,104 @@ fun PostDetailScreen(
             )
         }
     ) {
-        Column(
-            modifier = Modifier
-                .padding(it)
-                .padding(all = 16.dp)
+        Box(
+            modifier = Modifier.padding(it),
+            contentAlignment = Alignment.TopCenter
         ) {
+            Column(
+                modifier = Modifier
+                    .padding(all = 16.dp)
+            ) {
 
-            when (posts) {
-                is NetworkResult.Loading -> {
-                    LoadingIndicator(modifier = Modifier.fillMaxSize())
-                }
+                when (posts) {
+                    is NetworkResult.Loading -> {
+                        LoadingIndicator(modifier = Modifier.fillMaxSize())
+                    }
 
-                is NetworkResult.Success -> {
-                    val post = posts.data
-                    NetworkImage(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .aspectRatio(1f),
-                        url = post?.url.nullSafe(),
-                        contentScale = ContentScale.Crop
-                    )
-
-                    Row(
-                        modifier = Modifier
-                            .padding(top = 12.dp)
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceEvenly,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        CountText(
-                            count = post?.likesCount.nullSafe(),
-                            text = stringResource(R.string.txt_likes)
+                    is NetworkResult.Success -> {
+                        val post = posts.data
+                        NetworkImage(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .aspectRatio(1f),
+                            url = post?.url.nullSafe(),
+                            contentScale = ContentScale.Crop
                         )
 
-                        CountText(
-                            count = post?.commentsCount.nullSafe(),
-                            text = stringResource(R.string.txt_comments)
+                        Row(
+                            modifier = Modifier
+                                .padding(top = 12.dp)
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceEvenly,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            CountText(
+                                count = post?.likesCount.nullSafe(),
+                                text = stringResource(R.string.txt_likes)
+                            )
+
+                            CountText(
+                                count = post?.commentsCount.nullSafe(),
+                                text = stringResource(R.string.txt_comments)
+                            )
+                        }
+
+                        KeyValueText(
+                            modifier = Modifier.padding(top = 24.dp),
+                            key = stringResource(R.string.txt_created_by),
+                            value = post?.user?.fullName.nullSafe()
+                        )
+
+                        KeyValueText(
+                            modifier = Modifier.padding(top = 8.dp),
+                            key = stringResource(R.string.txt_created_at),
+                            value = post?.createdAt.nullSafe()
+                        )
+
+                        HyperlinkText(
+                            modifier = Modifier.padding(top = 8.dp),
+                            fullText = "${stringResource(R.string.txt_url)} ${post?.url}",
+                            linkText = listOf(post?.url.nullSafe()),
+                            hyperlinks = listOf(post?.url.nullSafe())
                         )
                     }
 
-                    KeyValueText(
-                        modifier = Modifier.padding(top = 24.dp),
-                        key = stringResource(R.string.txt_created_by),
-                        value = post?.user?.fullName.nullSafe()
-                    )
-
-                    KeyValueText(
-                        modifier = Modifier.padding(top = 8.dp),
-                        key = stringResource(R.string.txt_created_at),
-                        value = post?.createdAt.nullSafe()
-                    )
-
-                    HyperlinkText(
-                        modifier = Modifier.padding(top = 8.dp),
-                        fullText = "${stringResource(R.string.txt_url)} ${post?.url}",
-                        linkText = listOf(post?.url.nullSafe()),
-                        hyperlinks = listOf(post?.url.nullSafe())
-                    )
+                    is NetworkResult.Error -> {}
+                    is NetworkResult.NoInternetError -> {
+                        NoInternet()
+                    }
                 }
 
-                is NetworkResult.Error -> {}
-                is NetworkResult.NoInternetError -> {
-                    NoInternet()
+            }
+
+            when (deletePost) {
+                is NetworkResult.Success -> {
+                    LaunchedEffect(Unit) {
+                        onBack.invoke()
+                    }
+                }
+
+                else -> {
+                    // Ignore
                 }
             }
-        }
 
-        when (deletePost) {
-            is NetworkResult.Success -> {
-                showDeletePostDialog = false
-                onBack.invoke()
+            if (showDeletePostDialog) {
+                MyAlertDialog(
+                    onDismissRequest = { showDeletePostDialog = false },
+                    onConfirmation = {
+                        showDeletePostDialog = false
+                         viewModel.deletePost(
+                             postId = postId,
+                             userId = posts.data?.user?.userId.nullSafe().toLong()
+                         )
+                    },
+                    dialogTitle = stringResource(R.string.txt_delete_post),
+                    dialogText = stringResource(R.string.msg_are_you_sure_you_want_to_delete_this_post),
+                    icon = Icons.Default.Delete
+                )
             }
-
-            else -> {
-                // Ignore
-            }
         }
 
-        if (showDeletePostDialog) {
-            MyAlertDialog(
-                onDismissRequest = { showDeletePostDialog = false },
-                onConfirmation = {
-                    viewModel.deletePost(
-                        postId = postId,
-                        userId = posts.data?.user?.userId.nullSafe().toLong()
-                    )
-                },
-                dialogTitle = stringResource(R.string.txt_delete_post),
-                dialogText = stringResource(R.string.msg_are_you_sure_you_want_to_delete_this_post),
-                icon = Icons.Default.Delete
-            )
-        }
     }
 }
