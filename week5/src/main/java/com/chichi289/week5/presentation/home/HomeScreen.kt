@@ -199,11 +199,6 @@ fun PostItem(post: Post, onClickPost: (Post) -> Unit) {
             text = post.caption.repeat(10)
         )
 
-        /*CustomText(
-            modifier = Modifier.padding(all = 8.dp),
-            text = post.caption
-        )*/
-
     }
 
 }
