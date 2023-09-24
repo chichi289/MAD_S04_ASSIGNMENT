@@ -9,6 +9,7 @@ import androidx.navigation.navArgument
 import com.chichi289.week5.presentation.login.LoginScreen
 import com.chichi289.week5.presentation.main.MainScreen
 import com.chichi289.week5.presentation.post.PostDetailScreen
+import com.chichi289.week5.presentation.splash.SplashScreen
 import com.chichi289.week5.utils.KEY_POST_ID
 
 @Composable
@@ -16,7 +17,18 @@ fun MainGraph(
     navController: NavHostController
 ) {
 
-    NavHost(navController = navController, startDestination = Screen.Login.route) {
+    NavHost(navController = navController, startDestination = Screen.Splash.route) {
+
+        composable(Screen.Splash.route) {
+            SplashScreen(
+                onNavigate = { route ->
+                    navController.navigate(route) {
+                        // Clear backstack
+                        popUpTo(0)
+                    }
+                }
+            )
+        }
 
         composable(Screen.Login.route) {
             LoginScreen(
