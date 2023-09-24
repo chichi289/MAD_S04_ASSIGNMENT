@@ -35,6 +35,7 @@ import com.chichi289.week5.data.remote.model.post.Post
 import com.chichi289.week5.ui.components.CustomText
 import com.chichi289.week5.ui.components.CustomTopAppBar
 import com.chichi289.week5.ui.components.ErrorItem
+import com.chichi289.week5.ui.components.ExpandableText
 import com.chichi289.week5.ui.components.HorizontalSpacer
 import com.chichi289.week5.ui.components.LoadingIndicator
 import com.chichi289.week5.ui.components.NetworkImage
@@ -189,12 +190,19 @@ fun PostItem(post: Post, onClickPost: (Post) -> Unit) {
                 contentDescription = stringResource(R.string.description_comment)
             )
             HorizontalSpacer(width = 8.dp)
+
             CustomText(text = post.commentsCount.toString())
         }
-        CustomText(
+
+        ExpandableText(
+            modifier = Modifier.padding(8.dp),
+            text = post.caption.repeat(10)
+        )
+
+        /*CustomText(
             modifier = Modifier.padding(all = 8.dp),
             text = post.caption
-        )
+        )*/
 
     }
 

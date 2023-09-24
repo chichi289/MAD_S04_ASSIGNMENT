@@ -31,6 +31,7 @@ fun MainGraph(
 
         composable(Screen.Main.route) {
             MainScreen(
+                /*navController = navController,*/
                 onClickPost = { postId ->
                     navController.navigate(Screen.PostDetail.postId(postId))
                 }
