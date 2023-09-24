@@ -36,3 +36,11 @@ https://github.com/chichi289/MAD_S04_ASSIGNMENT/assets/20377949/10c35f31-e45b-47
 
 
 https://github.com/chichi289/MAD_S04_ASSIGNMENT/assets/20377949/d018a8c3-2bf2-4a2c-9b96-a620092c610b
+
+## Assignment 5 - Simple Instagram clone app
+
+|                                                                      |                                                                      |                                                                       |
+|----------------------------------------------------------------------|----------------------------------------------------------------------|-----------------------------------------------------------------------|
+| <img src="/screenshots/9.jpg" width="200" hspace="10" vspace="10"/>  | <img src="/screenshots/10.jpg" width="200" hspace="10" vspace="10"/> | <img src="/screenshots/11.jpg" width="200" hspace="10" vspace="10" /> |
+| <img src="/screenshots/12.jpg" width="200" hspace="10" vspace="10"/> | <img src="/screenshots/13.jpg" width="200" hspace="10" vspace="10"/> | <img src="/screenshots/14.jpg" width="200" hspace="10" vspace="10"/>  |
+| <img src="/screenshots/15.jpg" width="200" hspace="10" vspace="10"/> | <img src="/screenshots/16.jpg" width="200" hspace="10" vspace="10"/> ||
