@@ -41,6 +41,7 @@ import com.chichi289.week5.ui.components.LoadingIndicator
 import com.chichi289.week5.ui.components.NetworkImage
 import com.chichi289.week5.ui.theme.PostItemBackground
 import com.chichi289.week5.utils.items
+import com.chichi289.week5.utils.log
 import com.chichi289.week5.utils.nullSafe
 
 @Composable

@@ -45,6 +45,7 @@ fun ProfileScreen(
     viewModel: ProfileViewModel,
     onClickPost: (Post) -> Unit
 ) {
+
     val user by remember {
         viewModel.userStateFlow
     }.collectAsState()
@@ -115,7 +116,7 @@ fun ProfileScreen(
                 color = Color.Black,
                 thickness = 4.dp
             )
-            // TODO("Recomposed when come from PostDetail")
+
             val userPosts by userPostsStateFlow.collectAsState()
             LaunchedEffect(user?.userId) {
                 user?.userId?.let { userId ->
