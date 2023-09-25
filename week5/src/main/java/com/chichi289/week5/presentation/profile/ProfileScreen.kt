@@ -128,8 +128,9 @@ fun ProfileScreen(
                 }
 
                 is NetworkResult.Success -> {
+                    val list = (userPosts as NetworkResult.Success).data
                     PostList(
-                        list = userPosts.data ?: emptyList(),
+                        list = list,
                         onClickPost = onClickPost
                     )
                 }

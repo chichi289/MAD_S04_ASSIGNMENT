@@ -30,7 +30,7 @@ class PostRepositoryImpl @Inject constructor(
 
     override suspend fun getPostsByUserId(userId: Int): Flow<NetworkResult<List<Post>>> {
         return flow {
-            emit(NetworkResult.Loading())
+            emit(NetworkResult.Loading)
             val response = postService.getPostsByUserId(userId)
             if (response.isSuccessful && response.code() == 200) {
                 val responseBody = response.body()
@@ -53,7 +53,7 @@ class PostRepositoryImpl @Inject constructor(
 
     override suspend fun getPostDetail(postId: Long): Flow<NetworkResult<Post>> {
         return flow {
-            emit(NetworkResult.Loading())
+            emit(NetworkResult.Loading)
             val response = postService.getPostDetail(postId)
             if (response.isSuccessful && response.code() == 200) {
                 val responseBody = response.body()
@@ -77,13 +77,13 @@ class PostRepositoryImpl @Inject constructor(
     override suspend fun deletePost(postId: Long, userId: Long): Flow<NetworkResult<Unit>> {
         val deletePost = DeletePostRequest(userId)
         return flow {
-            emit(NetworkResult.Loading())
+            emit(NetworkResult.Loading)
             val response = postService.deletePost(
                 postId = postId.toInt(),
                 deletePostRequest = deletePost
             )
             if (response.isSuccessful && response.code() == 204) {
-                val responseBody = response.body()
+                val responseBody = response.body() ?: Unit
                 emit(NetworkResult.Success(responseBody))
             } else {
                 emit(NetworkResult.Error(response.message()))

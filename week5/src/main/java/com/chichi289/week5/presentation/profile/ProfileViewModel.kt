@@ -23,7 +23,7 @@ class ProfileViewModel @Inject constructor(
     val userStateFlow: StateFlow<User?> = _mutableUserStateFlow
 
     private val _mutableUserPostsMutableStateFlow =
-        MutableStateFlow<NetworkResult<List<Post>>>(NetworkResult.Loading())
+        MutableStateFlow<NetworkResult<List<Post>>>(NetworkResult.Loading)
 
     val userPostsStateFlow: StateFlow<NetworkResult<List<Post>>> = _mutableUserPostsMutableStateFlow
 

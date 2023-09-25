@@ -26,7 +26,7 @@ class LoginViewModel @Inject constructor(
             userRepository.getRandomUser().collect { networkResult ->
                 // Save user to room db
                 if (networkResult is NetworkResult.Success) {
-                    networkResult.data?.let { localRepository.insertUser(it) }
+                    networkResult.data.let { localRepository.insertUser(it) }
                 }
             }
         }

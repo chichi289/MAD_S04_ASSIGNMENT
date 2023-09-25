@@ -20,7 +20,7 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun getRandomUser(): Flow<NetworkResult<User>> {
         return flow {
-            emit(NetworkResult.Loading())
+            emit(NetworkResult.Loading)
             val response = userService.getRandomUser()
             if (response.isSuccessful && response.code() == 200) {
                 val userResponse = response.body()
@@ -40,5 +40,4 @@ class UserRepositoryImpl @Inject constructor(
                 }
             }
     }
-
 }

@@ -116,12 +116,12 @@ fun PostDetailScreen(
                     }
 
                     is NetworkResult.Success -> {
-                        val post = posts.data
+                        val post = (posts as NetworkResult.Success).data
                         NetworkImage(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .aspectRatio(1f),
-                            url = post?.url.nullSafe(),
+                            url = post.url.nullSafe(),
                             contentScale = ContentScale.Crop
                         )
 
@@ -133,12 +133,12 @@ fun PostDetailScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             CountText(
-                                count = post?.likesCount.nullSafe(),
+                                count = post.likesCount.nullSafe(),
                                 text = stringResource(R.string.txt_likes)
                             )
 
                             CountText(
-                                count = post?.commentsCount.nullSafe(),
+                                count = post.commentsCount.nullSafe(),
                                 text = stringResource(R.string.txt_comments)
                             )
                         }
@@ -146,20 +146,20 @@ fun PostDetailScreen(
                         KeyValueText(
                             modifier = Modifier.padding(top = 24.dp),
                             key = stringResource(R.string.txt_created_by),
-                            value = post?.user?.fullName.nullSafe()
+                            value = post.user.fullName.nullSafe()
                         )
 
                         KeyValueText(
                             modifier = Modifier.padding(top = 8.dp),
                             key = stringResource(R.string.txt_created_at),
-                            value = post?.createdAt.nullSafe()
+                            value = post.createdAt.nullSafe()
                         )
 
                         HyperlinkText(
                             modifier = Modifier.padding(top = 8.dp),
-                            fullText = "${stringResource(R.string.txt_url)} ${post?.url}",
-                            linkText = listOf(post?.url.nullSafe()),
-                            hyperlinks = listOf(post?.url.nullSafe())
+                            fullText = "${stringResource(R.string.txt_url)} ${post.url}",
+                            linkText = listOf(post.url.nullSafe()),
+                            hyperlinks = listOf(post.url.nullSafe())
                         )
                     }
 
@@ -200,7 +200,8 @@ fun PostDetailScreen(
                         showLoadingIndicator = true
                         viewModel.deletePost(
                             postId = postId,
-                            userId = posts.data?.user?.userId.nullSafe().toLong()
+                            userId = (posts as NetworkResult.Success).data.user.userId.nullSafe()
+                                .toLong()
                         )
                     },
                     dialogTitle = stringResource(R.string.txt_delete_post),
